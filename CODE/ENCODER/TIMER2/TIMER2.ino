@@ -1,4 +1,10 @@
 
+// "Estrutura do Timer2 Arduino Uno"
+// Modified By: Kaike Castro
+// By: Wagner Rambo, Wr Kits
+// https://www.youtube.com/watch?v=H-xzS8DZWZY
+
+
 // --- Rotina de Interrupção ---
 ISR(TIMER2_OVF_vect)
 {
