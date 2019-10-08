@@ -10,7 +10,7 @@
     
    Autor: Eng. Wagner Rambo  Data: Dezembro de 2017
    
-   www.wrkits.com.br | facebook.com/wrkits | youtube.com/user/canalwrkits
+   www.wrkits.com.br | facebook.com/wrkits | youtube.com/user/canalwrkits https://www.youtube.com/watch?v=DOJ4jtM2ePE
 
 
    HARDWARE Encoder Rotativo:
