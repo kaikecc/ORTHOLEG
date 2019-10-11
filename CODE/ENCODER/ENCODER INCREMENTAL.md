@@ -10,5 +10,5 @@ Os motores CC de passo, escovado ou sem escova não fornecem nenhum tipo de feed
 > Encoder são dispositivos/sensores eletro-mecânicos cuja funcionalidade é transformar posição em sinal elétrico digital. Com a utilização de encoders é possível quantizar distâncias, controlar velocidades, medir ângulos, número de rotações, realizar posicionamentos, rotacionar braços robóticos e etc.
 
 Para mais informações: https://www.hitecnologia.com.br/blog/o-que-%C3%A9-encoder-para-que-serve-como-escolher-como-interfacear/
-
+https://www.rs-online.com/designspark/quadrature-encoder-basics-part-1-theory
 
