@@ -17,20 +17,22 @@
 
 // ========================================================================================================
 // --- Mapeamento de Hardware ---
-#define ENC_A PB0 // pin 8
-#define ENC_B PB1 // pin 9
-#define led   PB5  // pin 13
+#define ENC_A PB5 // pin 13 PB5
+#define ENC_B PB4 // pin 12 PB4
+
+#define led   PB2  // pin 9
 
 #define ENC_PORT PINB
 
 
 // ========================================================================================================
 // --- Protótipo das Funções ---
-char read_encoder();           //Função para leitura de Rotary Encoder
+char read_encoder(); //Função para leitura de Rotary Encoder
 
 void show_encoder();
 
 // ========================================================================================================
+
 // --- Variáveis Globais ---
 unsigned char enc_A_prev = 0x00,
               counter    = 0x00,
@@ -45,7 +47,8 @@ unsigned char enc_A_prev = 0x00,
 // ======================================================================================================
 // --- Constantes ---
 const uint16_t T1_init = 0;
-const uint16_t T1_comp = 313;// (tempo x freq) / prescaler =
+// ~ 3 ms
+const uint16_t T1_comp = 63;// (tempo x freq) / prescaler =
 // prescaler: 256
 
 
@@ -57,7 +60,8 @@ ISR(TIMER1_COMPA_vect)
   TCNT1 = T1_init;      //reinicializa TIMER1
   PORTB ^= (1 << led);  //inverte nível lógico do pino do led
 
-  show_encoder( );
+  show_encoder();
+  
 } //end ISR
 
 
