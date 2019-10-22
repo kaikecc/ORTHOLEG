@@ -10,11 +10,11 @@ void show_encoder() {
 
   if ( tmpdata )
   {
-    CPR[i] = &counter;
-    i += 1;
+   
   //  Serial.print("Counter value: ");
+      Serial.println(counter,DEC);
     counter += tmpdata;
-    if(i == 1023) i = 0;
+  
   }
 }
 //=============================================================================
