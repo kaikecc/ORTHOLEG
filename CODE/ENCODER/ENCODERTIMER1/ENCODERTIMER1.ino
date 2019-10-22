@@ -20,9 +20,10 @@
 #define ENC_A PB5 // pin 13 PB5
 #define ENC_B PB4 // pin 12 PB4
 
-#define led   PB2  // pin 9
+//#define led   PB2  // pin 9
 
 #define ENC_PORT PINB
+
 
 
 // ========================================================================================================
@@ -38,7 +39,7 @@ unsigned char enc_A_prev = 0x00,
               counter    = 0x00,
               ctn_T2     = 0x00,
               flag_enc   = 0x01;
-
+              int* CPR;
 
 // ========================================================================================================
 
@@ -47,7 +48,7 @@ unsigned char enc_A_prev = 0x00,
 // ======================================================================================================
 // --- Constantes ---
 const uint16_t T1_init = 0;
-// ~ 3 ms
+// ~ 1 ms
 const uint16_t T1_comp = 63;// (tempo x freq) / prescaler =
 // prescaler: 256
 
@@ -58,7 +59,7 @@ ISR(TIMER1_COMPA_vect)
 {
 
   TCNT1 = T1_init;      //reinicializa TIMER1
-  PORTB ^= (1 << led);  //inverte nível lógico do pino do led
+ // PORTB ^= (1 << led);  //inverte nível lógico do pino do led
 
   show_encoder();
   
@@ -69,15 +70,16 @@ ISR(TIMER1_COMPA_vect)
 // --- Configurações Iniciais ---
 void setup()
 {
-
+  CPR = new int[1024];
 
   Serial.begin(115200);
+  
 
 
 
   //configura pino do led como saída
 
-  DDRB |= (1 << led); //  pinMode(led, OUTPUT);
+ // DDRB |= (1 << led); //  pinMode(led, OUTPUT);
   //configura pino do ENC_A, ENC_B como entrada
 
   DDRB &= ~(1 << ENC_A); //  pinMode(ENC_A, INPUT);
@@ -107,6 +109,6 @@ void setup()
 void loop()
 {
 
-
+ Serial.println(counter, DEC);
 
 } //end loop
