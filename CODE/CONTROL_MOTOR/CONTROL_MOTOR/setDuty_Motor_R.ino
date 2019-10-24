@@ -1,8 +1,8 @@
-void setDuty_Motor_R(float value){
+void setDuty_Motor_R(float value) {
 
-  int duty;
+  byte duty;
 
-  value = value/100;
+  value = value / 100;
 
   duty = (value * 256) - 1;
 
