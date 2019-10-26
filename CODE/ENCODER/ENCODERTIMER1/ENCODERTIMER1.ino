@@ -20,8 +20,10 @@
 #define ENC_A PB5 // pin 13 PB5
 #define ENC_B PB4 // pin 12 PB4
 
-//#define led   PB3  // pin 11
+#define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg)) // técnica de bitwise para ativar o reg especifico
+#define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
 
+//#define led   PB3  // pin 11
 #define ENC_PORT PINB
 
 
@@ -48,8 +50,8 @@ unsigned char enc_A_prev = 0x00,
 // ======================================================================================================
 // --- Constantes ---
 const uint16_t T1_init = 0;
-// ~ 1 us
-const uint16_t T1_comp = 2000;// (tempo x freq) / prescaler =
+// ~ 9 us
+const uint16_t T1_comp = 18;// (tempo x freq) / prescaler =
 // prescaler: 8
 
 
@@ -61,7 +63,11 @@ ISR(TIMER1_COMPA_vect)
   TCNT1 = T1_init;      //reinicializa TIMER1
  //  PORTB ^= (1 << led);  //inverte nível lógico do pino do led
 
- show_encoder();
+ // set_bit(PORTD, PORTD7); //digitalWrite(7, HIGH);
+
+  show_encoder();
+
+ // reset_bit(PORTD, PORTD7);
 
 } //end ISR
 
@@ -78,8 +84,8 @@ void setup()
 
 
   //configura pino do led como saída
- //  DDRB |= (1 << led); //  pinMode(led, OUTPUT);
-  
+  //  DDRB |= (1 << led); //  pinMode(led, OUTPUT);
+
   //configura pino do ENC_A, ENC_B como entrada
   DDRB &= ~(1 << ENC_A); //  pinMode(ENC_A, INPUT);
   DDRB &= ~(1 << ENC_B); // pinMode(ENC_B, INPUT);
@@ -87,15 +93,15 @@ void setup()
   //Modo de Comparação
   TCCR1A = 0;
 
-/*
-  //Prescaler 1:256
-  TCCR1B |=  (1 << CS12);
-  TCCR1B &= ~(1 << CS11);
-  TCCR1B &= ~(1 << CS10);
-*/
+  /*
+    //Prescaler 1:256
+    TCCR1B |=  (1 << CS12);
+    TCCR1B &= ~(1 << CS11);
+    TCCR1B &= ~(1 << CS10);
+  */
 
 
- //Prescaler 1:8
+  //Prescaler 1:8
   TCCR1B |=  ~(1 << CS12);
   TCCR1B &=   (1 << CS11);
   TCCR1B &=  ~(1 << CS10);
@@ -115,7 +121,7 @@ void setup()
 // --- Loop Infinito ---
 void loop()
 {
-  
+
 
 
 

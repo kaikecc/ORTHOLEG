@@ -7,6 +7,9 @@
 #define Motor_R PD3 // defie pino D3
 //#define led   PB0  // pin 8
 
+#define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg)) // técnica de bitwise para ativar o reg especifico
+#define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
+
 #define ENC_PORT PINB
 
 
@@ -36,8 +39,8 @@ unsigned char enc_A_prev = 0x00,
 // ======================================================================================================
 // --- Constantes ---
 const uint16_t T1_init = 0;
-// ~ 1 us
-const uint16_t T1_comp = 2;// (tempo x freq) / prescaler =
+// ~ 9 us
+const uint16_t T1_comp = 18;// (tempo x freq) / prescaler =
 // prescaler: 8
 
 
@@ -47,10 +50,10 @@ ISR(TIMER1_COMPA_vect)
 {
 
   TCNT1 = T1_init;      //reinicializa TIMER1
-  //   PORTB ^= (1 << led);  //inverte nível lógico do pino do led
-
+  //PORTB ^= (1 << led);  //inverte nível lógico do pino do led
+  set_bit(PORTD, PORTD7); //digitalWrite(7, HIGH);
   show_encoder();
-
+  reset_bit(PORTD, PORTD7); //digitalWrite(7, LOW);
 
 } //end ISR
 
@@ -62,7 +65,8 @@ void setup() {
   //  DDRB = B00001010;
   DDRD |= (1 << Motor_L); // pinMode(Motor_L, OUTPUT);
   DDRB |= (1 << Motor_R); // pinMode(Motor_R, OUTPUT);
-  //configura pino do led como saída
+  
+  
   //  DDRB |= (1 << led); //  pinMode(led, OUTPUT);
 
   //configura pino do ENC_A, ENC_B como entrada
@@ -71,10 +75,10 @@ void setup() {
 
   TCCR2A = 0xA3; // 1010 0011
   //TCCR2B = TCCR2B & B11111000 | B00000110;    // set timer 2 divisor to   256 for PWM frequency of   122.55 Hz
-  setFrequency(4); // ~ 1 kHz
+  setFrequency(1); // ~ 1 kHz
 
   // setDuty_Motor_L(0);
-  setDuty_Motor_L(25);
+  setDuty_Motor_L(20);
   // setDuty_Motor_L(50);
   // setDuty_Motor_L(75);
   // setDuty_Motor_L(100);
