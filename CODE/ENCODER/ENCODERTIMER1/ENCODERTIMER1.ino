@@ -23,7 +23,7 @@
 #define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg)) // técnica de bitwise para ativar o reg especifico
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
 
-//#define led   PB3  // pin 11
+#define led   PB3  // pin 11
 #define ENC_PORT PINB
 
 
@@ -63,11 +63,11 @@ ISR(TIMER1_COMPA_vect)
   TCNT1 = T1_init;      //reinicializa TIMER1
  //  PORTB ^= (1 << led);  //inverte nível lógico do pino do led
 
- // set_bit(PORTD, PORTD7); //digitalWrite(7, HIGH);
+ set_bit(PORTB, led); //digitalWrite(7, HIGH);
 
   show_encoder();
 
- // reset_bit(PORTD, PORTD7);
+ reset_bit(PORTB, led);
 
 } //end ISR
 
@@ -84,7 +84,7 @@ void setup()
 
 
   //configura pino do led como saída
-  //  DDRB |= (1 << led); //  pinMode(led, OUTPUT);
+    DDRB |= (1 << led); //  pinMode(led, OUTPUT);
 
   //configura pino do ENC_A, ENC_B como entrada
   DDRB &= ~(1 << ENC_A); //  pinMode(ENC_A, INPUT);
