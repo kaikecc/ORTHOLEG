@@ -1,19 +1,3 @@
-/* ======================================================================================================
-
-   Curso de Arduino WR Kits Channel
-
-   Aplicação para os Timers do Atmega328p (Arduino UNO, Duemilanove e outros)
-
-
-   Autor: Eng. Wagner Rambo  Data: Março de 2018
-
-
-   www.wrkits.com.br | facebook.com/wrkits | youtube.com/canalwrkits
-
-
-  ==================================================================================================== */
-
-
 
 // ========================================================================================================
 // --- Mapeamento de Hardware ---
@@ -22,7 +6,7 @@
 
 #define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg)) // técnica de bitwise para ativar o reg especifico
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
-
+#define toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg))
 #define led   PB3  // pin 11
 #define ENC_PORT PINB
 
@@ -51,7 +35,7 @@ unsigned char enc_A_prev = 0x00,
 // --- Constantes ---
 const uint16_t T1_init = 0;
 // ~ 9 us
-const uint16_t T1_comp = 18;// (tempo x freq) / prescaler =
+const uint16_t T1_comp = 2;// (tempo x freq) / prescaler =
 // prescaler: 8
 
 
@@ -61,15 +45,19 @@ ISR(TIMER1_COMPA_vect)
 {
 
   TCNT1 = T1_init;      //reinicializa TIMER1
- //  PORTB ^= (1 << led);  //inverte nível lógico do pino do led
+  //  PORTB ^= (1 << led);  //inverte nível lógico do pino do led
 
- set_bit(PORTB, led); //digitalWrite(7, HIGH);
 
-  show_encoder();
+   set_bit(PORTB, led); //digitalWrite(7, HIGH);
+ // toggle_bit(PORTB, led);
+ // show_encoder();
 
- reset_bit(PORTB, led);
+  reset_bit(PORTB, led);
 
 } //end ISR
+
+
+//************************************
 
 
 // ======================================================================================================
@@ -77,14 +65,11 @@ ISR(TIMER1_COMPA_vect)
 void setup()
 {
 
-
   Serial.begin(115200);
 
 
-
-
   //configura pino do led como saída
-    DDRB |= (1 << led); //  pinMode(led, OUTPUT);
+  DDRB |= (1 << led); //  pinMode(led, OUTPUT);
 
   //configura pino do ENC_A, ENC_B como entrada
   DDRB &= ~(1 << ENC_A); //  pinMode(ENC_A, INPUT);

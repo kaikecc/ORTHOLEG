@@ -1,9 +1,11 @@
-
+clc
+clear all
 arq = uigetfile("*.txt","C:\Users\kaike\Documents\READSERIAL\","Escolha um arquivo .txt: "); // Funcao para pegar um arquivo
 counter = fscanfMat(arq);// pega o arquivo de formato especificado 
 
-tempo = 0:0.000001:((length(counter)-1)*0.000001);
+tempo = 0:0.00000968:((length(counter)-1)*0.00000968);
 plot(tempo,counter,'r')
+xgrid
 
 f = [0:100:100000];
 CPT = 500;

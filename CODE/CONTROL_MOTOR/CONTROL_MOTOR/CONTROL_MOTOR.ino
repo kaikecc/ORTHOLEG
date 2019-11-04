@@ -5,7 +5,7 @@
 #define ENC_B PB4 // pin 12 PB4
 #define Motor_L PB3 // define pino D11
 #define Motor_R PD3 // defie pino D3
-//#define led   PB0  // pin 8
+#define led   PB0  // pin 8
 
 #define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg)) // técnica de bitwise para ativar o reg especifico
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
@@ -40,7 +40,7 @@ unsigned char enc_A_prev = 0x00,
 // --- Constantes ---
 const uint16_t T1_init = 0;
 // ~ 9 us
-const uint16_t T1_comp = 18;// (tempo x freq) / prescaler =
+const uint16_t T1_comp = 2;// (tempo x freq) / prescaler =
 // prescaler: 8
 
 
@@ -51,9 +51,9 @@ ISR(TIMER1_COMPA_vect)
 
   TCNT1 = T1_init;      //reinicializa TIMER1
   //PORTB ^= (1 << led);  //inverte nível lógico do pino do led
-  set_bit(PORTD, PORTD7); //digitalWrite(7, HIGH);
+  set_bit(PORTB, led); //digitalWrite(7, HIGH);
   show_encoder();
-  reset_bit(PORTD, PORTD7); //digitalWrite(7, LOW);
+  reset_bit(PORTB, led); //digitalWrite(7, LOW);
 
 } //end ISR
 
@@ -65,9 +65,9 @@ void setup() {
   //  DDRB = B00001010;
   DDRD |= (1 << Motor_L); // pinMode(Motor_L, OUTPUT);
   DDRB |= (1 << Motor_R); // pinMode(Motor_R, OUTPUT);
-  
-  
-  //  DDRB |= (1 << led); //  pinMode(led, OUTPUT);
+
+
+  DDRB |= (1 << led); //  pinMode(led, OUTPUT);
 
   //configura pino do ENC_A, ENC_B como entrada
   DDRB &= ~(1 << ENC_A); //  pinMode(ENC_A, INPUT);
