@@ -27,6 +27,11 @@ unsigned char enc_A_prev = 0x00,
               flag_enc   = 0x01;
 
 
+#define MAX_RESULTS 1500
+volatile unsigned char results [MAX_RESULTS];
+volatile unsigned resultNumber;
+
+
 // ========================================================================================================
 
 
@@ -35,7 +40,7 @@ unsigned char enc_A_prev = 0x00,
 // --- Constantes ---
 const uint16_t T1_init = 0;
 // ~ 9 us
-const uint16_t T1_comp = 2;// (tempo x freq) / prescaler =
+const uint16_t T1_comp = 1;// (tempo x freq) / prescaler =
 // prescaler: 8
 
 
@@ -48,9 +53,9 @@ ISR(TIMER1_COMPA_vect)
   //  PORTB ^= (1 << led);  //inverte nível lógico do pino do led
 
 
-   set_bit(PORTB, led); //digitalWrite(7, HIGH);
- // toggle_bit(PORTB, led);
- // show_encoder();
+  set_bit(PORTB, led); //digitalWrite(7, HIGH);
+  // toggle_bit(PORTB, led);
+  show_encoder();
 
   reset_bit(PORTB, led);
 
@@ -85,11 +90,17 @@ void setup()
     TCCR1B &= ~(1 << CS10);
   */
 
+  /*
+    //Prescaler 1:8
+    TCCR1B |=  ~(1 << CS12);
+    TCCR1B &=   (1 << CS11);
+    TCCR1B &=  ~(1 << CS10);
 
-  //Prescaler 1:8
+  */
+  //Prescaler 1:1
   TCCR1B |=  ~(1 << CS12);
-  TCCR1B &=   (1 << CS11);
-  TCCR1B &=  ~(1 << CS10);
+  TCCR1B &=   ~(1 << CS11);
+  TCCR1B &=   (1 << CS10);
 
   //Inicializa Registradores
   TCNT1 = T1_init;
@@ -107,7 +118,12 @@ void setup()
 void loop()
 {
 
-
+  while (resultNumber > MAX_RESULTS) {
+    for (int i = 0; i < MAX_RESULTS; i++)
+    {
+      Serial.println (results [i]);
+    }
+  }
 
 
 } //end loop

@@ -10,12 +10,10 @@ void show_encoder() {
 
   if ( tmpdata )
   {
-    if (Serial) {
-      //  Serial.print("Counter value: ");
-      results [resultNumber++] = counter;
-      Serial.println(counter, DEC);
 
-    }
+    //  Serial.print("Counter value: ");
+   // Serial.println(counter, DEC);
+
     counter += tmpdata;
   }
 }

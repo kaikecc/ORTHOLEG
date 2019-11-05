@@ -6,22 +6,16 @@
 #define led   PB3  // pin 11
 
 
-#define MAX_RESULTS  256
-
-volatile char results [MAX_RESULTS];
-
-volatile unsigned resultNumber;
-
 
 //******************* PIN CHARGE INTERRUPT *****************
 
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
 
-  //  set_bit(PORTB, led); //digitalWrite(7, HIGH);
-  toggle_bit(PORTB, led);
+    set_bit(PORTB, led); //digitalWrite(7, HIGH);
+ // toggle_bit(PORTB, led);
   show_encoder();
-  //  reset_bit(PORTB, led);
+    reset_bit(PORTB, led);
 
 }
 
@@ -29,7 +23,7 @@ ISR(PCINT0_vect) {
 
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   //configura pino do led como saída
   DDRB |= (1 << led); //  pinMode(led, OUTPUT);
@@ -56,14 +50,6 @@ void setup() {
 
 void loop() {
   
-  while (resultNumber < MAX_RESULTS) { }
-
-  for (int i = 0; i < MAX_RESULTS; i++)
-  {
-    Serial.println (results [i]);
-  }
-  resultNumber = 0; // reset counter
-
-
+  
 
 }
