@@ -61,7 +61,9 @@ ISR(PCINT0_vect) {
 
 <details>
 <summary>"read_encoder()"</summary>
+ 
 ``` ino
+ 
 //=============================================================================
 // --- Desenvolvimento das Funções ---
 char read_encoder()                              //Função para leitura de Rotary Encoder
@@ -90,6 +92,7 @@ char read_encoder()                              //Função para leitura de Rota
 
 <details>
 <summary>"show_encoder()"</summary>
+ 
 ``` ino
 //=============================================================================
 // --- Desenvolvimento das Funções ---
@@ -113,9 +116,8 @@ void show_encoder() {
 //=============================================================================
 ```
 </details>
-``` ino
 
-```
+
 ### 3. RESULTADOS
 
 
