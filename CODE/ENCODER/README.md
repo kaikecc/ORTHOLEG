@@ -32,8 +32,12 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 <img src="https://user-images.githubusercontent.com/42541528/68327411-0f57ab00-00ac-11ea-9560-f6f9de8a119e.png" width="600" heigth="600"> 
 </p>
 
-``` ino
+#### ANÁLISE DO CÓDIGO
 
+Essa sessão define todos os pinos que serão utilizado pelo ATmega328. Os pinos target1 e target2 são pinos que 
+servirão como marcadores de tempo na entrada e saída de função de leitura de encoder através do osciloscópio.
+
+``` ino
 // --- Mapeamento de Hardware ---
 #define ENC_A PB5 // pin 13 PB5
 #define ENC_B PB4 // pin 12 PB4
@@ -79,4 +83,53 @@ ISR(PCINT0_vect) {
 
 //***********************************************************
 ```
+
+``` ino
+
+void setup() {
+  Serial.begin(115200);
+
+  //  DDRB = B00001010;
+  DDRD |= (1 << Motor_L); // pinMode(Motor_L, OUTPUT);
+  DDRB |= (1 << Motor_R); // pinMode(Motor_R, OUTPUT);
+  //configura pino do led como saída
+  DDRD |= (1 << target2); //  pinMode(target2, OUTPUT);
+  DDRB |= (1 << target1); //  pinMode(target1, OUTPUT);
+
+  //************ PIN CHARGE INTERRUPT *****************
+  cli();
+
+  //pinMode(13, INPUT_PULLUP);
+  //pinMode(12, INPUT_PULLUP);
+
+  DDRB &= ~( (1 << DDB5) | (1 << DDB4));
+  PORTB |= ( (1 << PORTB5) | (1 << PORTB4));
+
+  // Seta as "chaves" necessárias para que as interrupções cheguem ao vetor;
+  PCICR |= (1 << PCIE0);
+  PCMSK0 |= ( (1 << PCINT5) | (1 << PCINT4));
+
+  sei();
+
+  //******************************************************
+
+  TCCR2A = 0xA3; // 1010 0011
+  //TCCR2B = TCCR2B & B11111000 | B00000110;    // set timer 2 divisor to   256 for PWM frequency of   122.55 Hz
+
+  setFrequency(1); // ~ 1 kHz
+
+  
+  setDuty_Motor_L(50);  
+  setDuty_Motor_R(80.0);
+
+}
+```
+
+``` ino
+void loop() {
+
+
+}
+```
+
 
