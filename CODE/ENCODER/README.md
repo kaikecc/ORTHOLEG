@@ -32,7 +32,7 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 <img src="https://user-images.githubusercontent.com/42541528/68327411-0f57ab00-00ac-11ea-9560-f6f9de8a119e.png" width="600" heigth="600"> 
 </p>
 
-#### ANÁLISE DO CÓDIGO
+#### 2.1 ANÁLISE DO CÓDIGO
 
 Essa sessão define todos os pinos que serão utilizado pelo ATmega328. Os pinos target1 e target2 são pinos que 
 servirão como marcadores de tempo na entrada e saída de função de leitura de encoder através do osciloscópio.
@@ -114,7 +114,7 @@ void setup() {
   //******************************************************
 
   TCCR2A = 0xA3; // 1010 0011
-  //TCCR2B = TCCR2B & B11111000 | B00000110;    // set timer 2 divisor to   256 for PWM frequency of   122.55 Hz
+  //TCCR2B = TCCR2B & B11111000 | B00000110;// set timer 2 divisor to   256 for PWM frequency of 122.55 Hz
 
   setFrequency(1); // ~ 1 kHz
 
@@ -131,5 +131,15 @@ void loop() {
 
 }
 ```
+### 3. RESULTADOS
+
+
+
+<p align="center">
+ <b>Figura 3.</b>
+ <a href="#">Pulsos do gerador de sinais</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/68328832-cbb27080-00ae-11ea-9c52-c89a5d196f2c.png" width="600" heigth="600"> 
+</p>
 
 
