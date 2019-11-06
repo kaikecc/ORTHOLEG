@@ -143,3 +143,9 @@ void loop() {
 </p>
 
 
+<p align="center">
+ <b>Figura 4.</b>
+ <a href="#">Os marcados target1 e target2</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/68328912-f8ff1e80-00ae-11ea-9b9d-9f79a39d9f77.png" width="600" heigth="600"> 
+</p>
