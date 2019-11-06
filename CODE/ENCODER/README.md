@@ -49,3 +49,34 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 #define ENC_PORT PINB
 
 ```
+
+``` ino
+// ========================================================================================================
+// --- Protótipo das Funções ---
+char read_encoder(); //Função para leitura de Rotary Encoder
+
+void show_encoder(); //Função para mostrar de Rotary Encoder
+
+void setDuty_Motor_L();
+
+void setDuty_Motor_R();
+// ========================================================================================================
+```
+
+``` ino
+// =========================================================
+//******************* PIN CHARGE INTERRUPT *****************
+
+// Função de Tratamento de Interrupção
+ISR(PCINT0_vect) {
+
+  set_bit(PORTD, target2); //digitalWrite(target2, HIGH);
+  // toggle_bit(PORTD, target2);
+  show_encoder();
+  reset_bit(PORTD, target2);
+
+}
+
+//***********************************************************
+```
+
