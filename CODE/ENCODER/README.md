@@ -117,6 +117,40 @@ void show_encoder() {
 ```
 </details>
 
+<details>
+<summary>"setDuty_Motor_L()"</summary>
+ 
+``` ino
+void setDuty_Motor_L(float value) {
+
+  byte duty;
+
+  value = value / 100;
+
+  duty = (value * 256) - 1;
+
+  OCR2A = duty;
+}
+```
+</details>
+
+<details>
+<summary>"setDuty_Motor_R()"</summary>
+ 
+``` ino
+void setDuty_Motor_R(float value) {
+
+  byte duty;
+
+  value = value / 100;
+
+  duty = (value * 256) - 1;
+
+  OCR2B = duty;
+}
+}
+```
+</details>
 
 ### 3. RESULTADOS
 
