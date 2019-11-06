@@ -59,6 +59,8 @@ ISR(PCINT0_vect) {
 ```
 </details>
 
+<details>
+<summary>"read_encoder()"</summary>
 ``` ino
 //=============================================================================
 // --- Desenvolvimento das Funções ---
@@ -84,7 +86,33 @@ char read_encoder()                              //Função para leitura de Rota
 
 }
 ```
+</details>
 
+<details>
+<summary>"show_encoder()"</summary>
+``` ino
+//=============================================================================
+// --- Desenvolvimento das Funções ---
+void show_encoder() {
+
+  static unsigned char counter = 0; // variavel pra armazenar valor do encoder
+  char tmpdata; // dado temporario
+
+
+  tmpdata = read_encoder();
+
+  if ( tmpdata )
+  {
+
+    set_bit(PORTB, target1); //digitalWrite(7, HIGH);
+    counter += tmpdata;
+    reset_bit(PORTB, target1);
+
+  }
+}
+//=============================================================================
+```
+</details>
 ``` ino
 
 ```
