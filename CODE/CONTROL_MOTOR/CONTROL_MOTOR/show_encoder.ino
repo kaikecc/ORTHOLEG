@@ -11,9 +11,9 @@ void show_encoder() {
   if ( tmpdata )
   {
 
-    //  Serial.print("Counter value: ");
-    Serial.println(counter, DEC);
+    set_bit(PORTB, target1); //digitalWrite(7, HIGH);
     counter += tmpdata;
+    reset_bit(PORTB, target1);
 
   }
 }

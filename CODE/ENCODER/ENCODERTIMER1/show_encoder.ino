@@ -2,26 +2,26 @@
 // --- Desenvolvimento das Funções ---
 void show_encoder() {
 
-   // toggle_bit(PORTB, led);
-    // set_bit(PORTB, led); //digitalWrite(7, HIGH);
+  // toggle_bit(PORTB, led); // digitalWrite(led, !digitalRead(7));
+  // set_bit(PORTB, led); //digitalWrite(led, HIGH);
 
   static unsigned char counter = 0; // variavel pra armazenar valor do encoder
   char tmpdata; // dado temporario
-  
-  
-  tmpdata = read_encoder();
 
+
+  tmpdata = read_encoder();
+  
+
+  
   if ( tmpdata )
   {
-   
-  //  Serial.print("Counter value: ");
-   //  Serial.println(counter);
-   results [resultNumber++] = counter;
-    counter += tmpdata;
   
+    counter += tmpdata;
+   // results [resultNumber++] = counter;
+
   }
 
-  
- // reset_bit(PORTB, led);
+
+  // reset_bit(PORTB, led); //digitalWrite(led, LOW);
 }
 //=============================================================================

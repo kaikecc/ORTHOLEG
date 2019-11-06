@@ -27,9 +27,7 @@ unsigned char enc_A_prev = 0x00,
               flag_enc   = 0x01;
 
 
-#define MAX_RESULTS 1500
-volatile unsigned char results [MAX_RESULTS];
-volatile unsigned resultNumber;
+
 
 
 // ========================================================================================================
@@ -117,13 +115,5 @@ void setup()
 // --- Loop Infinito ---
 void loop()
 {
-
-  while (resultNumber > MAX_RESULTS) {
-    for (int i = 0; i < MAX_RESULTS; i++)
-    {
-      Serial.println (results [i]);
-    }
-  }
-
 
 } //end loop

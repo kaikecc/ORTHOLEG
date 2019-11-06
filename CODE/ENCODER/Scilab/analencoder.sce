@@ -17,3 +17,13 @@ xgrid
 
 d_C = [0, 25, 50, 75, 100];
 fq = [0, 25E3, 38.9E3, 48.2E3, 54.9E3];
+
+T=10; %Period
+D=5; %Duration
+N=10; %Number of pulses
+
+x=linspace(0,T*N,10000);
+d=[0:T:T*N];
+y=pulstran(x,d,'rectpuls',D);
+plot(x,y);
+ylim([-1,2]);

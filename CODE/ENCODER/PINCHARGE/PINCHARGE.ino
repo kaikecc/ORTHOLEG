@@ -12,10 +12,10 @@
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
 
-    set_bit(PORTB, led); //digitalWrite(7, HIGH);
- // toggle_bit(PORTB, led);
+  set_bit(PORTB, led); //digitalWrite(7, HIGH);
+  // toggle_bit(PORTB, led);
   show_encoder();
-    reset_bit(PORTB, led);
+  reset_bit(PORTB, led);
 
 }
 
@@ -49,7 +49,7 @@ void setup() {
 }
 
 void loop() {
-  
-  
+
+
 
 }
