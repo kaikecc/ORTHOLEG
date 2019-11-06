@@ -14,7 +14,7 @@ Os motores CC de passo, escovado ou sem escova não fornecem nenhum tipo de feed
 
 ### Encoder HEDL 5540
 
-Esse encoder possui 500 [CPR](https://www.cuidevices.com/blog/what-is-encoder-ppr-cpr-and-lpr) (Contagem Por Revolução) e refere-se ao número de estados decodificados em quadratura que existem entre as duas saídas A e B. A frequência máxima de operação é de 100kHz
+Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is-encoder-ppr-cpr-and-lpr) (Contagem Por Revolução) e refere-se ao número de estados decodificados em quadratura que existem entre as duas saídas A e B. A frequência máxima de operação é de 100kHz com velocidade em torno de 12000 rpm.
 
 
 <p align="center">
@@ -23,4 +23,13 @@ Esse encoder possui 500 [CPR](https://www.cuidevices.com/blog/what-is-encoder-pp
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/68326961-382b7080-00ab-11ea-95a4-aa0eb6415b51.png" width="600" heigth="600"> 
 </p>
+
+
+<p align="center">
+ <b>Figura 2.</b>
+ <a href="#">Ficha técninca do encoder</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/68327411-0f57ab00-00ac-11ea-9560-f6f9de8a119e.png" width="600" heigth="600"> 
+</p>
+
 
