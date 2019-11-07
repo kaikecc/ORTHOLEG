@@ -10,11 +10,21 @@ void show_encoder() {
 
   if ( tmpdata )
   {
-
-    set_bit(PORTB, target1); //digitalWrite(7, HIGH);
+    //  set_bit(PORTB, target1); //digitalWrite(7, HIGH);
     counter += tmpdata;
-    reset_bit(PORTB, target1);
+    //  reset_bit(PORTB, target1);
+    if (counter >= 250)
+    {
+      pulses = pulses + 1;
+
+    }
+    if(pulses >= 1000){
+   setDuty_Motor_L(0.0);
+}
+
 
   }
+
+
 }
 //=============================================================================

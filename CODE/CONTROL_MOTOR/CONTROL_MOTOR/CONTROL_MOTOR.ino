@@ -1,19 +1,28 @@
 
 // --- Mapeamento de Hardware ---
-#define ENC_A PB5 // pin 13 PB5
-#define ENC_B PB4 // pin 12 PB4
-#define Motor_L PB3 // define pino D11
-#define Motor_R PD3 // defie pino D3
+#define ENC_A PB5 // D13 - encoder A
+#define ENC_B PB4 // D12 - encoder B
+#define ENC_PORT PINB // mascara do PORTB
 
-#define target1   PB0  // pin 8
-#define target2   PD7  // pin 7
+#define rmpwmpin PB3  // D11 - right motor pulse width  modulation pin    0 - 255          Speed and Brake 
+#define rmbrkpin PB1  //  D9 - right motor brake        control    pin    HIGH = Brake 
+#define rmdirpin PB2  // D10 - right motor direction    control    pin    HIGH = Forward   Low = Reverse
+#define rmcurpin 7   //  A7 - right motor current      monitor    pin    0 - 1023         -20A to +20A   
+
+#define lmpwmpin PD3  // D3 - left  motor pulse width  modulation pin     0 - 255          Speed and Brake
+#define lmbrkpin PD4  //  D4 - left  motor brake        control    pin    HIGH = Brake 
+#define lmdirpin PD2  //  D2 - left  motor direction    control    pin    HIGH = Forward   Low = Reverse
+#define lmcurpin  6  //  A6 - left  motor current      monitor    pin    0 - 1023         -20A to +20A   
+
+#define target1   PB0  // D8 - marcador 1
+#define target2   PD7  // D7 - marcador 2
 
 #define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg)) // técnica de bitwise para ativar o reg especifico
+#define  toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg)) // técnica de bitwise para alternar os estados
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
 
-#define ENC_PORT PINB
 
-
+volatile unsigned long pulses = 0;
 
 
 // ========================================================================================================
@@ -28,42 +37,45 @@ void setDuty_Motor_R();
 // ========================================================================================================
 
 
-// ======================================================================================================
+// =========================================================
 //******************* PIN CHARGE INTERRUPT *****************
 
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
 
-  set_bit(PORTD, target2); //digitalWrite(target2, HIGH);
+ // set_bit(PORTD, target2); //digitalWrite(target2, HIGH);
   // toggle_bit(PORTD, target2);
   show_encoder();
-  reset_bit(PORTD, target2);
+ // reset_bit(PORTD, target2); //digitalWrite(target2, LOW);
 
 }
 
 //***********************************************************
 
 
-
-
-
 void setup() {
   Serial.begin(115200);
 
   //  DDRB = B00001010;
-  DDRD |= (1 << Motor_L); // pinMode(Motor_L, OUTPUT);
-  DDRB |= (1 << Motor_R); // pinMode(Motor_R, OUTPUT);
+  DDRD |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
+  DDRB |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
+  DDRB |= (1 << lmdirpin); // pinMode(lmdirpin, OUTPUT);
+  DDRB &= ~(1 << lmcurpin); // pinMode(lmcurpin, INPUT);
 
+
+  DDRB |= (1 << rmpwmpin); // pinMode(rmpwmpin, OUTPUT);
+  DDRB |= (1 << rmbrkpin); // pinMode(lmbrkpin, OUTPUT);
+  DDRB |= (1 << rmdirpin); // pinMode(lmdirpin, OUTPUT);
+  DDRB &= ~(1 << rmcurpin); // pinMode(lmcurpin, INPUT);
 
 
   //configura pino do led como saída
   DDRD |= (1 << target2); //  pinMode(target2, OUTPUT);
   DDRB |= (1 << target1); //  pinMode(target1, OUTPUT);
 
-  //************ PIN CHARGE INTERRUPT *****************
+  //************ PIN CHARGE INTERRUPT *******************
 
   cli();
-
 
   //pinMode(13, INPUT_PULLUP);
   //pinMode(12, INPUT_PULLUP);
@@ -84,15 +96,14 @@ void setup() {
 
   setFrequency(1); // ~ 1 kHz
 
-  // setDuty_Motor_L(0);
-  setDuty_Motor_L(50);
-  // setDuty_Motor_L(50);
-  // setDuty_Motor_L(75);
-  // setDuty_Motor_L(100);
-
-  setDuty_Motor_R(80.0);
+  setDuty_Motor_L(15.0);
+  PORTB |= (1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
+  PORTB |= (1 << rmdirpin); // SENTIDO HORÁRIO MOTOR DIREITO
 
 
+  // PORTB &= ~(1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
+  // PORTB &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
+  setDuty_Motor_R(50.0);
 
 }
 
