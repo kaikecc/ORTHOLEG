@@ -1,4 +1,4 @@
-# ENCODER POR QUADRATURA
+# LEITURA DO ENCODER HEDL 5540 PELA PLACA T'REX
 
 ### 1. INTRODUÇÃO
 Em algumas aplicações de movimento exigem pouca precisão e nenhum feedback. Outros, principalmente industriais, exigem uma maneira robusta de acompanhar dados confiáveis e precisos sobre velocidade, posição e direção.
