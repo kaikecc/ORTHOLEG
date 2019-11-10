@@ -94,7 +94,7 @@ void setup() {
   TCCR2A = 0xA3; // 1010 0011
   //TCCR2B = TCCR2B & B11111000 | B00000110;    // set timer 2 divisor to   256 for PWM frequency of   122.55 Hz
 
-  setFrequency(1); // ~ 1 kHz
+  setFrequency(5); // ~ 1 kHz
 
   setDuty_Motor_L(15.0);
   PORTB |= (1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
@@ -103,7 +103,7 @@ void setup() {
 
   // PORTB &= ~(1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
   // PORTB &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
-  setDuty_Motor_R(50.0);
+  setDuty_Motor_R(0.0);
 
 }
 
