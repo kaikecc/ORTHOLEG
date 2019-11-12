@@ -6,24 +6,22 @@ void show_encoder() {
   char tmpdata; // dado temporario
 
 
+
   tmpdata = read_encoder();
 
   if ( tmpdata )
   {
-    //  set_bit(PORTB, target1); //digitalWrite(7, HIGH);
+    set_bit(PORTB, target1); //digitalWrite(7, HIGH);
     counter += tmpdata;
-    //  reset_bit(PORTB, target1);
-    if (counter >= 250)
-    {
-      pulses = pulses + 1;
-
-    }
-    if(pulses >= 1000){
-   setDuty_Motor_L(0.0);
-}
-
+    cpp += 1;
+    //  pulses[resultNumber++] = counter;
+    //   Serial.println(cpp += 1);
+    reset_bit(PORTB, target1);
 
   }
+
+if(cpp > 86000) { setDuty_Motor_L(0.0);}
+
 
 
 }

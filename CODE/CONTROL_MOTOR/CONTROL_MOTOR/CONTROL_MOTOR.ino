@@ -21,8 +21,10 @@
 #define  toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg)) // técnica de bitwise para alternar os estados
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
 
-
-volatile unsigned long pulses = 0;
+#define MAX_RESULTS 1000
+//volatile unsigned char pulses[MAX_RESULTS];
+volatile int resultNumber;
+volatile unsigned long cpp = 0;
 
 
 // ========================================================================================================
@@ -43,10 +45,10 @@ void setDuty_Motor_R();
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
 
- // set_bit(PORTD, target2); //digitalWrite(target2, HIGH);
+  // set_bit(PORTD, target2); //digitalWrite(target2, HIGH);
   // toggle_bit(PORTD, target2);
   show_encoder();
- // reset_bit(PORTD, target2); //digitalWrite(target2, LOW);
+  // reset_bit(PORTD, target2); //digitalWrite(target2, LOW);
 
 }
 
@@ -94,20 +96,34 @@ void setup() {
   TCCR2A = 0xA3; // 1010 0011
   //TCCR2B = TCCR2B & B11111000 | B00000110;    // set timer 2 divisor to   256 for PWM frequency of   122.55 Hz
 
-  setFrequency(5); // ~ 1 kHz
+  setFrequency(1); // ~ 1 kHz
 
   setDuty_Motor_L(15.0);
-  PORTB |= (1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
-  PORTB |= (1 << rmdirpin); // SENTIDO HORÁRIO MOTOR DIREITO
+   PORTB |= (1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
+   PORTB |= (1 << rmdirpin); // SENTIDO HORÁRIO MOTOR DIREITO
 
 
   // PORTB &= ~(1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
   // PORTB &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
+  
   setDuty_Motor_R(0.0);
+
+ // PORTB &= ~(1 << rmbrkpin);
+ // PORTB &= ~(1 << lmbrkpin);
 
 }
 
 void loop() {
 
 
+  // while (resultNumber > MAX_RESULTS) {
+
+
+  //  setDuty_Motor_L(0.0);
+  /*
+    for (int i = 0; i < MAX_RESULTS; i++)
+    {
+    Serial.println (pulses [i]);
+    }
+  */
 }
