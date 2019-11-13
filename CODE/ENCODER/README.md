@@ -230,3 +230,14 @@ void setup() {
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/68331085-1cc46380-00b3-11ea-8c35-2e43ef6f0bd9.png" width="600" heigth="600"> 
 </p>
+
+
+
+<p align="center">
+ <b>Figura 6.</b>
+ <a href="#">Velocidade máxima com marcado de leitura de pulsos</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/68721230-7be11700-0590-11ea-8056-a474649b958b.png" width="600" heigth="600"> 
+</p>
+
+
