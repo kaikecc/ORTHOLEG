@@ -1,4 +1,4 @@
-# LEITURA DO ENCODER HEDL 5540 PELA PLACA T'REX
+# LEITURA DO ENCODER HEDL 5540 PELA PLATAFORMA T'REX
 
 ### 1. INTRODUÇÃO
 Em algumas aplicações de movimento exigem pouca precisão e nenhum feedback. Outros, principalmente industriais, exigem uma maneira robusta de acompanhar dados confiáveis e precisos sobre velocidade, posição e direção.
@@ -39,7 +39,7 @@ O código foi construído através de interrupção por mudança de estado nos p
 Ao organizar o código por interrupção garante maior controle nos processos de execução de tarefas.
 
 Essa sessão define todos os pinos que serão utilizado pelo ATmega328. Os pino target target2 é pino que 
-servirá como marcador de tempo na entrada e saída de função de leitura de encoder através do osciloscópio.
+servirá como marcador de tempo na entrada e saída de função de leitura de encoder através do osciloscópio. </b> </b>
 
 * FUNÇÃO DE SERVIÇO DE INTERRUPÇÃO BASEADO EM MUDANÇA DE ESTADO EM PINOS
 <details>
@@ -58,6 +58,8 @@ ISR(PCINT0_vect) {
 }
 
 ```
+</b>
+
 </details>
 
 <details>
@@ -89,6 +91,8 @@ char read_encoder()                              //Função para leitura de Rota
 
 }
 ```
+</b>
+
 </details>
 
 <details>
@@ -116,6 +120,8 @@ void show_encoder() {
 }
 //=============================================================================
 ```
+</b>
+
 </details>
 
 <details>
@@ -133,6 +139,8 @@ void setDuty_Motor_L(float value) {
   OCR2A = duty;
 }
 ```
+</b>
+
 </details>
 
 <details>
@@ -152,6 +160,7 @@ void setDuty_Motor_R(float value) {
 }
 ```
 </details>
+</b>
 
 <details>
 <summary>"setDuty_Motor_R()"</summary>
