@@ -41,6 +41,7 @@ Ao organizar o código por interrupção garante maior controle nos processos de
 Essa sessão define todos os pinos que serão utilizado pelo ATmega328. Os pino target target2 é pino que 
 servirá como marcador de tempo na entrada e saída de função de leitura de encoder através do osciloscópio.
 
+* FUNÇÃO DE SERVIÇO DE INTERRUPÇÃO BASEADO EM MUDANÇA DE ESTADO EM PINOS
 <details>
 <summary>"ISR(PCINT0_vect)"</summary>
 
