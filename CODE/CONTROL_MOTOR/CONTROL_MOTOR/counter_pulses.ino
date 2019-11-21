@@ -10,15 +10,17 @@ void counter_pulses() {
 
   if (!ENC_last && old_state) { //ENC_lastigual a zero e old_state diferente de zero?
     //Sim...
-    enc_B =  (PINB & (1 << ENC_B)); //Lê estado de  ENC_B e armazena em  enc_B
+    enc_B =  (PINB & (1 << ENC_B)); //Lê estado de  ENC_B e armazena em  ENC_B
 
     if (!enc_B && direction_m) direction_m = false;     //Sentido reverso
     else if (enc_B && !direction_m) direction_m = true; //Sentido direto
   } //end if
   ENC_last = old_state;
 
-  if (!direction_m)  pulse_number++;          //incrementa número do pulso se direction limpa
+  set_bit(PORTB, target1);
+  
+  if (!direction_m)  pulse_number++;           //incrementa número do pulso se direction limpa
   else              pulse_number--;           //senão decrementa
 
-
+  reset_bit(PORTB, target1);
 }

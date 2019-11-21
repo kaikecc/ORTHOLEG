@@ -19,10 +19,11 @@
 
 #define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg)) // técnica de bitwise para ativar o reg especifico
 #define  toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg)) // técnica de bitwise para alternar os estados
+ // toggle_bit(PORTD, target2);
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
 
-#define turn_break 43E3 // para couter_pulses -- 2*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
-
+#define turn_break (43E3*voltas) // para couter_pulses -- 2*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
+#define voltas 5
 //86E3  para show_encoder-- 4*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
 
 volatile unsigned long cpp = 0;
@@ -48,12 +49,10 @@ void counter_pulses();
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
 
-  set_bit(PORTB, target1); //digitalWrite(target2, HIGH);
-  // toggle_bit(PORTD, target2);
-  // if (PINB & (1 << PINB5))
+//  set_bit(PORTB, target1); //digitalWrite(target2, HIGH);
   //  show_encoder(); // D13 mudou de LOW para HIGH;
   counter_pulses();
-  reset_bit(PORTB, target1); //digitalWrite(target2, LOW);
+// reset_bit(PORTB, target1); //digitalWrite(target2, LOW);
 
 }
 
@@ -84,8 +83,6 @@ void setup() {
 
   cli();
 
-
-
   DDRB &= ~( (1 << DDB5) | (1 << DDB4)); // Seta D12, D13 como entrada;
   //pinMode(13, INPUT_PULLUP);
   //pinMode(12, INPUT_PULLUP);
@@ -93,8 +90,8 @@ void setup() {
 
   // Seta as "chaves" necessárias para que as interrupções cheguem ao vetor;
   PCICR |= (1 << PCIE0);
-  // PCMSK0 |= ( (1 << PCINT5) | (1 << PCINT4));
-  PCMSK0 |= (1 << PCINT5);
+  // PCMSK0 |= ( (1 << PCINT5) | (1 << PCINT4)); // 
+  PCMSK0 |= (1 << PCINT5); // INTERRUPÇAO É ATIVADA NA MUDANÇA DE ESTADO DO PINO 13
 
   sei();
 
@@ -108,13 +105,13 @@ void setup() {
   setDuty_Motor_L(50.0);
   PORTD |= (1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
-  // PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
+  //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
 
 
   setDuty_Motor_R(0.0);
   PORTB |= (1 << rmdirpin); // SENTIDO HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
-  // PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
+  //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
 }
 
