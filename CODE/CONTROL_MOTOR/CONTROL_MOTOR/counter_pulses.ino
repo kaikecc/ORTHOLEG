@@ -18,7 +18,7 @@ void counter_pulses() {
   ENC_last = old_state;
 
   set_bit(PORTB, target1);
-  
+
   if (!direction_m)  pulse_number++;           //incrementa número do pulso se direction limpa
   else              pulse_number--;           //senão decrementa
 
