@@ -24,16 +24,49 @@ b2 = tq2 / v2; % Coeficiente de Viscosidade da Caixa de Redução
 Jeq = J1 + J2*(N2/N1)^2; % equivalente de cap em paral se soma
 beq = (1/b1)*(1/b2)*(N2/N1)^2 / ((1/b1) + (1/b2)*(N2/N1)^2); % equivalente
 
+
+a = J1*La;
+b = J1*Ra + b1*La;
+c = b1*Ra + Km^2;
+
 s = tf('s');
+P_motor = Km /(J1*La*s^2 + (J1*Ra + b1*La)*s + b1*Ra + Km^2);
 
-P_motor = Km /(Jeq*La*s^2 + (Jeq*Ra + beq*La)*s + beq*Ra + Km^2);
+% Find the root using FZERO
 
-%step(P_motor);
+format long
 
-%sisotool('rlocus', P_motor);
+[y,t] = step(P_motor);
+h = mean(diff(t));
+dy = gradient(y, h);                                            % Numerical Derivative
+[~,idx] = max(dy);                                              % Index Of Maximum
+b = [t([idx-1,idx+1]) ones(2,1)] \ y([idx-1,idx+1]);            % Regression Line Around Maximum Derivative
+tv = [-b(2)/b(1); (1-b(2))/b(1)];                               % Independent Variable Range For Tangent Line Plot
+f = [tv ones(2,1)] * b;                                         % Calculate Tangent Line
 
+figure
+plot(t, y)
+hold on
+plot(tv, f, '-g')                                               % Tangent Line
+plot(t(idx), y(idx), '.r')                                      % Maximum Vertical
+hold on
+grid
 
+L = tv(1);
+T = tv(2) - tv(1);
 
+Kp = 1.2*T/L;
+Ki = 2*L;
+Ti = 2*L;
+Td = 0.5*L;
 
-
-      
+cont = Kp*(1 + 1/(Ti*s) + Td*s);
+     
+cl_sys = feedback(cont*P_motor,1);
+figure; step(cl_sys)
+t = [0:0.01:3];
+[yc,tc] = step(cl_sys,t);
+figure;
+plot(tc,yc,'LineWidth',2); xlabel('Time(s)'); ylabel('Amplitude');
+title('Zeigler Nicholas Optimized Closed Loop Response');
+grid on
