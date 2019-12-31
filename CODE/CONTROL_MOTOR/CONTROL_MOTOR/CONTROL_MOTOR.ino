@@ -20,9 +20,9 @@
 #define  toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg)) // técnica de bitwise para alternar os estados
 // toggle_bit(PORTD, target2);
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
-
-#define turn_break (43E3*voltas) // para couter_pulses -- 2*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
 #define voltas 5
+#define turn_break (43E3*voltas) // para couter_pulses -- 2*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
+
 //86E3  para show_encoder-- 4*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
 
 //******************** VARIÁVEIS GLOBAIS ********************
@@ -39,22 +39,27 @@ double lastError;
 double input, output, setPoint;
 double cumError, rateError;
 
-volatile unsigned long cpp = 0;
-volatile long  pulse_number = 0;
+
+volatile unsigned pulse_number = 0;
+
+int           rpm;
+unsigned long timeold;
+
+//Altere o numero abaixo de acordo com o seu disco encoder
+unsigned  pulsos_por_volta = 500;
+
 //***********************************************************
 
 
 // ========================================================================================================
 // --- Protótipo das Funções ---
-char read_encoder(); //Função para leitura de Rotary Encoder
-
-void show_encoder(); //Função para mostrar de Rotary Encoder
-
 void setDuty_Motor_L();
 
 void setDuty_Motor_R();
 
 void counter_pulses();
+
+double computePID(double inp);
 // ========================================================================================================
 
 
@@ -63,9 +68,9 @@ void counter_pulses();
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
 
-  // set_bit(PORTB, target1); //digitalWrite(target2, HIGH);
-   counter_pulses();
-  // reset_bit(PORTB, target1); //digitalWrite(target2, LOW);
+  // set_bit(PORTB, target1); // digitalWrite(target2, HIGH);
+  counter_pulses();
+  // reset_bit(PORTB, target1); // digitalWrite(target2, LOW);
 
 }
 
@@ -109,7 +114,7 @@ void setup() {
 
   setFrequency(1); // ~  62.5 kHz
 
-  setDuty_Motor_L(12.0);
+  setDuty_Motor_L(0.0);
   PORTD |= (1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
@@ -121,15 +126,20 @@ void setup() {
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
 
-  setPoint = 0;
+  setPoint = 3000; // rpm
 }
 
 void loop() {
 
-  /*
-    if (abs(pulse_number) > turn_break) {
-      set_bit(PORTD, target2);
-      setDuty_Motor_L(0.0);
-    }
-  */
+  //Atualiza contador a cada segundo
+  if (millis() - timeold >= 1000)
+  {
+    rpm = ((60 * 1000 / pulsos_por_volta ) / (millis() - timeold)) * (pulse_number / 4);
+    timeold = millis();
+    pulse_number = 0;
+
+  }
+
+  setDuty_Motor_L(((computePID(rpm) * (1 / 317)) * (100 / 24)));
+
 }
