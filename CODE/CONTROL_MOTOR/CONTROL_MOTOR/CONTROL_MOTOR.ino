@@ -18,11 +18,12 @@
 
 #define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg)) // técnica de bitwise para ativar o reg especifico
 #define  toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg)) // técnica de bitwise para alternar os estados
-// toggle_bit(PORTD, target2);
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
-#define voltas 5
-#define turn_break (43E3*voltas) // para couter_pulses -- 2*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
 
+#define SAMPLE_DELAY 1000  //  this gets 1 reading per second.
+#define Kb 317 // (V / rpm)
+
+// para couter_pulses -- 2*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
 //86E3  para show_encoder-- 4*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
 
 //******************** VARIÁVEIS GLOBAIS ********************
@@ -39,11 +40,9 @@ double lastError;
 double input, output, setPoint;
 double cumError, rateError;
 
-
 volatile unsigned pulse_number = 0;
-
-int           rpm;
-unsigned long timeold;
+unsigned           rpm;
+unsigned  timeold;
 
 //Altere o numero abaixo de acordo com o seu disco encoder
 unsigned  pulsos_por_volta = 500;
@@ -54,24 +53,17 @@ unsigned  pulsos_por_volta = 500;
 // ========================================================================================================
 // --- Protótipo das Funções ---
 void setDuty_Motor_L();
-
 void setDuty_Motor_R();
-
 void counter_pulses();
-
+void setFrequency(char option);
 double computePID(double inp);
 // ========================================================================================================
-
 
 //******************* PIN CHARGE INTERRUPT *****************
 
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
-
-  // set_bit(PORTB, target1); // digitalWrite(target2, HIGH);
-  counter_pulses();
-  // reset_bit(PORTB, target1); // digitalWrite(target2, LOW);
-
+   counter_pulses();
 }
 
 //*****************   END ISR *******************************
@@ -79,7 +71,7 @@ ISR(PCINT0_vect) {
 
 void setup() {
 
-
+//  Serial.begin(9600);
   DDRD |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
   DDRD |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
   DDRD |= (1 << lmdirpin); // pinMode(lmdirpin, OUTPUT);
@@ -89,10 +81,6 @@ void setup() {
   DDRB |= (1 << rmbrkpin); // pinMode(lmbrkpin, OUTPUT);
   DDRB |= (1 << rmdirpin); // pinMode(lmdirpin, OUTPUT);
   DDRC &= ~(1 << rmcurpin); // pinMode(lmcurpin, INPUT);
-
-  //configura pinos do marcadores como saída
-  DDRD |= (1 << target2); //  pinMode(target2, OUTPUT);
-  DDRB |= (1 << target1); //  pinMode(target1, OUTPUT);
 
   //************* PIN CHARGE INTERRUPT *******************
 
@@ -110,8 +98,6 @@ void setup() {
   //*************** END PCINT ************************************
 
   TCCR2A = 0xA3; // 1010 0011
-  //TCCR2B = TCCR2B & B11111000 | B00000110;    // set timer 2 divisor to   256 for PWM frequency of   122.55 Hz
-
   setFrequency(1); // ~  62.5 kHz
 
   setDuty_Motor_L(0.0);
@@ -119,27 +105,24 @@ void setup() {
   //  PORTD &= ~(1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
 
-
   setDuty_Motor_R(0.0);
   PORTB |= (1 << rmdirpin); // SENTIDO HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
-
-  setPoint = 3000; // rpm
+  setPoint = 3000.0; // rpm
 }
 
 void loop() {
 
   //Atualiza contador a cada segundo
-  if (millis() - timeold >= 1000)
-  {
-    rpm = ((60 * 1000 / pulsos_por_volta ) / (millis() - timeold)) * (pulse_number / 4);
+  if (millis() - timeold >= SAMPLE_DELAY){
+    rpm = ((60000.f / pulsos_por_volta ) / ((unsigned int)millis() - timeold)) * (pulse_number / 4);
     timeold = millis();
     pulse_number = 0;
-
+  //  Serial.println(rpm);
   }
 
-  setDuty_Motor_L(((computePID(rpm) * (1 / 317)) * (100 / 24)));
+  setDuty_Motor_L(((computePID(rpm) * (1 / Kb)) * (100 / 24)));
 
 }
