@@ -23,7 +23,7 @@
  <b>Figura 2.</b>
  <a href="#">Circuito Equivalente do motor com caixa de redução</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71670554-f76c7280-2d4e-11ea-8361-61c6bd439939.png" width="400" heigth="400"> 
+<img src="https://user-images.githubusercontent.com/42541528/71670554-f76c7280-2d4e-11ea-8361-61c6bd439939.png" width="600" heigth="800"> 
 </p>
 
 
@@ -63,7 +63,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 5.</b>
+ <b>Figura 6.</b>
  <a href="#">Diagrama de bloco do controlador PID</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71668812-21bb3180-2d49-11ea-87fb-d4767ecacd70.png" width="600" heigth="600"> 
@@ -75,7 +75,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 6.</b>
+ <b>Figura 7.</b>
  <a href="#">Modelo da planta</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71669820-c5f2a780-2d4c-11ea-96dc-fcd5769c3b53.png" width="200" heigth="200"> 
@@ -86,7 +86,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 7.</b>
+ <b>Figura 8.</b>
  <a href="#">Modelo da curva para o método Z-N</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71669888-f8040980-2d4c-11ea-9139-226c0046f2d6.png" width="400" heigth="400"> 
@@ -118,7 +118,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 6.</b>
+ <b>Figura 9.</b>
  <a href="#">Diagrama de bloco do controle do motor DC</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71670675-65b13500-2d4f-11ea-971a-a5ab3a60d9c7.png" width="400" heigth="400"> 
@@ -126,7 +126,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 6.</b>
+ <b>Figura 10.</b>
  <a href="#">Função de Transferência do Motor</a> 
  <br><br>
 <img src="http://latex.codecogs.com/gif.latex?G%28s%29%20%3D%20%5Cfrac%7B0.0302%7D%7B1.164%20*%2010%5E%7B-9%7D%20*%20s%5E%7B2%7D%20&plus;%206.705%20*%2010%5E%7B-6%7D%20*s%20&plus;%200.01794%7D" width="400" heigth="400"> 
@@ -138,7 +138,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 7.</b>
+ <b>Figura 11.</b>
  <a href="#">Curva de Resposta Z-N motor DC</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71667843-85436000-2d45-11ea-8f59-0db2eb9d9b0b.png" width="600" heigth="800"> 
@@ -148,7 +148,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 8.</b>
+ <b>Figura 12.</b>
  <a href="#">Curva de Resposta Z-N motor DC com zoom</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71667892-b754c200-2d45-11ea-8315-6d6a82db1cd5.png" width="600" heigth="800"> 
@@ -157,7 +157,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 9.</b>
+ <b>Figura 13.</b>
  <a href="#">Z-N Closed Loop Response</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71667929-d3586380-2d45-11ea-8585-82ee4c63034a.png" width="600" heigth="800"> 
@@ -167,7 +167,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 10.</b>
+ <b>Figura 14.</b>
  <a href="#">Resposta ao degrau</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71669514-ac049500-2d4b-11ea-83ba-de9f1af4a15a.png" width="600" heigth="600"> 
