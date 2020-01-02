@@ -63,7 +63,7 @@ double computePID(double inp);
 
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
-   counter_pulses();
+  counter_pulses();
 }
 
 //*****************   END ISR *******************************
@@ -71,7 +71,7 @@ ISR(PCINT0_vect) {
 
 void setup() {
 
-//  Serial.begin(9600);
+ // Serial.begin(115200);
   DDRD |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
   DDRD |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
   DDRD |= (1 << lmdirpin); // pinMode(lmdirpin, OUTPUT);
@@ -110,19 +110,18 @@ void setup() {
   //  PORTB &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
-  setPoint = 3000.0; // rpm
+  setPoint = 0.0; // rpm
 }
 
 void loop() {
 
   //Atualiza contador a cada segundo
-  if (millis() - timeold >= SAMPLE_DELAY){
+  if (millis() - timeold >= SAMPLE_DELAY) {
     rpm = ((60000.f / pulsos_por_volta ) / ((unsigned int)millis() - timeold)) * (pulse_number / 4);
     timeold = millis();
     pulse_number = 0;
   //  Serial.println(rpm);
   }
-
-  setDuty_Motor_L(((computePID(rpm) * (1 / Kb)) * (100 / 24)));
+     setDuty_Motor_L(((computePID(rpm) * (1 / Kb)) * (100 / 24)));
 
 }
