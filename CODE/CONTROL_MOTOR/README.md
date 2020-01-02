@@ -54,9 +54,9 @@
 </b> </b>
 <p align="center">
  <b>Figura 4.</b>
- <a href="#">Diagrama de bloco do controlador PID</a> 
+ <a href="#">Função de transferência do PID</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71668812-21bb3180-2d49-11ea-87fb-d4767ecacd70.png" width="600" heigth="600"> 
+<img src="https://user-images.githubusercontent.com/42541528/71668812-21bb3180-2d49-11ea-87fb-d4767ecacd70.png" width="400" heigth="400"> 
 </p>
 
 ### 4. SINTONIZANDO POR ZIEGLER-NICHOLS
