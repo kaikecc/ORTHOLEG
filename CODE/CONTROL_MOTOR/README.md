@@ -12,7 +12,7 @@
  <b>Figura 1.</b>
  <a href="#">Circuito Equivalente de um motor DC controlado por armadura</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71666447-97ba9b00-2d3f-11ea-8d54-44e231f2bcea.png" width="600" heigth="600"> 
+<img src="https://user-images.githubusercontent.com/42541528/71666447-97ba9b00-2d3f-11ea-8d54-44e231f2bcea.png" width="400" heigth="400"> 
 </p>
 
 
@@ -24,6 +24,18 @@
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71668848-4ca58580-2d49-11ea-9cd7-3c787827d6f8.png" width="600" heigth="600"> 
 </p>
+
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 3.</b>
+ <a href="#">Expressão do PID</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71669052-2c29fb00-2d4a-11ea-8afd-e32bc1ca0652.png" width="400" heigth="400"> 
+</p>
+
+
 ### 3. CONTROLADOR PID
 
 
@@ -32,7 +44,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 3.</b>
+ <b>Figura 4.</b>
  <a href="#">Diagrama de bloco do controlador PID</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71668812-21bb3180-2d49-11ea-87fb-d4767ecacd70.png" width="600" heigth="600"> 
