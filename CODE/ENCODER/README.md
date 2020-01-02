@@ -27,7 +27,7 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 
 <p align="center">
  <b>Figura 2.</b>
- <a href="#">Ficha técninca do encoder</a> 
+ <a href="#">Ficha técnica do encoder</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/68327411-0f57ab00-00ac-11ea-9560-f6f9de8a119e.png" width="600" heigth="800"> 
 </p>
@@ -37,7 +37,7 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 
 <p align="center">
  <b>Figura 3.</b>
- <a href="#">Ficha técninca do encoder</a> 
+ <a href="#">Diagrama de Funcionamentor</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71665188-b1a5af00-2d3a-11ea-8802-d961810d53c9.png" width="600" heigth="800"> 
 </p>
