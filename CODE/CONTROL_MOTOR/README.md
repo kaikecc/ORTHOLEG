@@ -100,7 +100,7 @@
  <b>Tabela 1.</b>
  <a href="#">Z-N Primeiro Método</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71670080-98f2c480-2d4d-11ea-93b4-8fef8efd4450.png" width="400" heigth="400"> 
+<img src="https://user-images.githubusercontent.com/42541528/71670080-98f2c480-2d4d-11ea-93b4-8fef8efd4450.png" width="300" heigth="300"> 
 </p>
 
 </b> </b>
@@ -108,7 +108,7 @@
  <b>Tabela 2.</b>
  <a href="#">Z-N Segundo Método</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71670175-e1aa7d80-2d4d-11ea-91cd-cdee83ded587.png" width="400" heigth="400"> 
+<img src="https://user-images.githubusercontent.com/42541528/71670175-e1aa7d80-2d4d-11ea-91cd-cdee83ded587.png" width="300" heigth="300"> 
 </p>
 
 ### 5. SIMULAÇÃO E ANÁLISE
