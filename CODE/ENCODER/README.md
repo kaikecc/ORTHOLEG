@@ -45,9 +45,9 @@ O desenvolvimento do código para a leitura dos pulsos do encoder foi feita otim
 <img src="https://user-images.githubusercontent.com/42541528/71665188-b1a5af00-2d3a-11ea-8802-d961810d53c9.png" width="600" heigth="800"> 
 </p>
 
-### 3. RESULTADOS
+### 3. RESULTADOS </b> </b>
 
-Ao analisar no osciloscópio os pulsos do encoder foi estudado a frequência máxima de rotação do motor maxon 198867 submetido a uma tensão de 20V 10A e com isso resultando uma frequência na faixa 67.6 kHz a 70 kHz como mostra Figura 4. 
+Ao analisar no osciloscópio os pulsos do encoder foi estudado a frequência máxima de rotação do motor maxon [198867](https://www.maxongroup.com/medias/sys_master/root/8833416495134/19-EN-136.pdf) submetido a uma tensão de 20V 10A e com isso resultando uma frequência na faixa 67.6 kHz a 70 kHz como mostra Figura 4. 
 
 <p align="center">
  <b>Figura 4.</b>
@@ -58,6 +58,8 @@ Ao analisar no osciloscópio os pulsos do encoder foi estudado a frequência má
 
 Ainda no osciloscópio foi testado a função **COUNTER PULSES** que no início do código e no fim foi adicionado um marcador que muda o estado de um pino digital para assim analisar o tempo de execução e desempenho quando o motor está na sua máxima velocidade e com isso a Figura 5 mostra em **VERDE** o rastreio por meio do pino e em **AMARELO** o canal A do encoder e pode-se perceber que há um certo atrado de em torno de 2 us em relação ao pulso do canal.
 
+</b> </b>
+
 <p align="center">
  <b>Figura 5.</b>
  <a href="#">Track de pulsos pela função implentada no arduino</a> 
@@ -65,3 +67,6 @@ Ainda no osciloscópio foi testado a função **COUNTER PULSES** que no início 
 <img src="https://user-images.githubusercontent.com/42541528/71664940-ca619500-2d39-11ea-9b5e-395f7cb5966f.png" width="600" heigth="600"> 
 </p>
 
+
+</b> </b>
+### 4. CONCLUSÃO </b> </b>
