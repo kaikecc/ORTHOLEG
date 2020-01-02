@@ -96,10 +96,9 @@
 </b> </b>
 <p align="center">
  <b>Figura 9.</b>
- <a href="#">Tabela 1. Z-N Segundo Método</a> 
+ <a href="#">Tabela 2. Z-N Segundo Método</a> 
  <br><br>
-<img src="![t2](https://user-images.githubusercontent.com/42541528/71670175-e1aa7d80-2d4d-11ea-91cd-cdee83ded587.png)
-" width="400" heigth="400"> 
+<img src="https://user-images.githubusercontent.com/42541528/71670175-e1aa7d80-2d4d-11ea-91cd-cdee83ded587.png" width="400" heigth="400"> 
 </p>
 
 ### 5. SIMULAÇÃO E ANÁLISE
