@@ -18,6 +18,14 @@
 ### 3. CONTROLADOR PID
 
 
+</b> </b>
+<p align="center">
+ <b>Figura 2.</b>
+ <a href="#">Diagrama de bloco do controlador PID</a> 
+ <br><br>
+<img src="http://wikis.controltheorypro.com/cgi-bin/mathtex.cgi?C_%7BPID%7D%5Cleft%28s%5Cright%29%3DK_P%5Cleft%28k%2B%5Cfrac%7Bk_%7Bi%7D%7D%7Bs%7D%2Bk_%7Bd%7Ds%5Cright%29
+" width="600" heigth="600"> 
+</p>
 
 </b> </b>
 <p align="center">
