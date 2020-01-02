@@ -15,6 +15,15 @@
 <img src="https://user-images.githubusercontent.com/42541528/71666447-97ba9b00-2d3f-11ea-8d54-44e231f2bcea.png" width="600" heigth="600"> 
 </p>
 
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 2.</b>
+ <a href="#">Diagrama de bloco da função de transferência do motor</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71668848-4ca58580-2d49-11ea-9cd7-3c787827d6f8.png" width="600" heigth="600"> 
+</p>
 ### 3. CONTROLADOR PID
 
 
@@ -23,7 +32,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 2.</b>
+ <b>Figura 3.</b>
  <a href="#">Diagrama de bloco do controlador PID</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71668812-21bb3180-2d49-11ea-87fb-d4767ecacd70.png" width="600" heigth="600"> 
@@ -37,7 +46,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 6.</b>
+ <b>Figura 4.</b>
  <a href="#">Função de Transferência do Motor</a> 
  <br><br>
 <img src="http://latex.codecogs.com/gif.latex?G%28s%29%20%3D%20%5Cfrac%7B0.0302%7D%7B1.164%20*%2010%5E%7B-9%7D%20*%20s%5E%7B2%7D%20&plus;%206.705%20*%2010%5E%7B-6%7D%20*s%20&plus;%200.01794%7D" width="400" heigth="400"> 
