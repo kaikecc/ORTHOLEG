@@ -37,7 +37,7 @@
  <b>Figura 3.</b>
  <a href="#">Expressão do PID</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71669052-2c29fb00-2d4a-11ea-8afd-e32bc1ca0652.png" width="400" heigth="400"> 
+<img src="https://user-images.githubusercontent.com/42541528/71669052-2c29fb00-2d4a-11ea-8afd-e32bc1ca0652.png" width="600" heigth="600"> 
 </p>
 
 
@@ -56,7 +56,7 @@
  <b>Figura 4.</b>
  <a href="#">Função de transferência do PID</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71668812-21bb3180-2d49-11ea-87fb-d4767ecacd70.png" width="400" heigth="400"> 
+<img src="https://user-images.githubusercontent.com/42541528/71668812-21bb3180-2d49-11ea-87fb-d4767ecacd70.png" width="300" heigth="300"> 
 </p>
 
 ### 4. SINTONIZANDO POR ZIEGLER-NICHOLS
