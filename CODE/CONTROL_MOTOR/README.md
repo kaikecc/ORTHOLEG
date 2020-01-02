@@ -17,9 +17,19 @@
 
 
 
+
 </b> </b>
 <p align="center">
  <b>Figura 2.</b>
+ <a href="#">Circuito Equivalente do motor com caixa de redução</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71670554-f76c7280-2d4e-11ea-8361-61c6bd439939.png" width="400" heigth="400"> 
+</p>
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 3.</b>
  <a href="#">Diagrama de bloco da função de transferência do motor</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71668848-4ca58580-2d49-11ea-9cd7-3c787827d6f8.png" width="600" heigth="600"> 
@@ -34,7 +44,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 3.</b>
+ <b>Figura 4.</b>
  <a href="#">Expressão do PID</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71669052-2c29fb00-2d4a-11ea-8afd-e32bc1ca0652.png" width="300" heigth="300"> 
@@ -45,7 +55,7 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 4.</b>
+ <b>Figura 5.</b>
  <a href="#">Função de transferência do PID</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71669319-09e4ad00-2d4b-11ea-877c-5a71cc2a82ba.png" width="200" heigth="200"> 
@@ -104,6 +114,15 @@
 ### 5. SIMULAÇÃO E ANÁLISE
 
 
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 6.</b>
+ <a href="#">Diagrama de bloco do controle do motor DC</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71670675-65b13500-2d4f-11ea-971a-a5ab3a60d9c7.png" width="400" heigth="400"> 
+</p>
 
 </b> </b>
 <p align="center">
