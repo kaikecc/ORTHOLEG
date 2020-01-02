@@ -36,12 +36,11 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 ### 3. RESULTADOS
 
 
-
 <p align="center">
  <b>Figura 3.</b>
- <a href="#">Pulsos do gerador de sinais</a> 
+ <a href="#">Pulsos do encoder na frequência máxima</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/68328832-cbb27080-00ae-11ea-9c52-c89a5d196f2c.png" width="600" heigth="600"> 
+<img src="https://user-images.githubusercontent.com/42541528/71664911-a30ac800-2d39-11ea-9e70-dcf6bb2ac736.png" width="600" heigth="600"> 
 </p>
 
 
