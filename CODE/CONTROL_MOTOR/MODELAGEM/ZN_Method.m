@@ -28,7 +28,7 @@ s = tf('s');
 
 a = J1*La;
 b = (J1*Ra + b1*La);
-c =  b1*Ra + Kt*Kt;
+c =  b1*Ra + Kb*Kt;
 
 %b = b/a;
 %c = c/a;
@@ -38,7 +38,7 @@ P_motor = Kt /(a*s*s + b*s + c);
 
 %P_motor = Kt / ((Jeq*Ra + beq*La)*s + beq*Ra + Kb*Kt);
 
-
+%P_motor = 0.015 / (0.01*s*s + 0.14*s + 0.40015);
 % Find the root using FZERO
 
 format long

@@ -29,9 +29,9 @@
 //******************** VARIÁVEIS GLOBAIS ********************
 
 //PID constants
-double kp = 0.0;
-double ki = 0.0;
-double kd = 0.0;
+double kp = 5.074432375231928;
+double ki = 4.297354263433757E03;
+double kd = 2.104874723675934E-04;
 
 unsigned long currentTime, previousTime;
 double elapsedTime;
@@ -41,7 +41,7 @@ double input, output, setPoint;
 double cumError, rateError;
 
 volatile unsigned pulse_number = 0;
-unsigned           rpm;
+double           rpm;
 unsigned  timeold;
 
 //Altere o numero abaixo de acordo com o seu disco encoder
