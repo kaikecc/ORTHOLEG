@@ -82,7 +82,7 @@
  <b>Figura 7.</b>
  <a href="#">Curva de Resposta Z-N motor DC</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71667843-85436000-2d45-11ea-8f59-0db2eb9d9b0b.png" width="600" heigth="600"> 
+<img src="https://user-images.githubusercontent.com/42541528/71667843-85436000-2d45-11ea-8f59-0db2eb9d9b0b.png" width="400" heigth="400"> 
 </p>
 
 
