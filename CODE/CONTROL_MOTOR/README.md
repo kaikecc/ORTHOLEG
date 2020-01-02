@@ -1,4 +1,4 @@
-# Controle PID usando Método Ziegler-Nichils para Controle de Velocidade do Motor DC Maxon 
+# Controle PID usando Método Ziegler-Nichols para Controle de Velocidade do Motor DC Maxon 
 
 
 ### 1. INTRODUÇÃO
