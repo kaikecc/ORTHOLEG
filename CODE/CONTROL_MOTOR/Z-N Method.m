@@ -36,7 +36,7 @@ c =  b1*Ra + Kt*Kt;
 
 P_motor = Kt /(a*s*s + b*s + c);
 
-%P_motor = Kt / s*((Jeq*Ra + beq*La)*s + beq*Ra + Kb*Kt);
+%P_motor = Kt / ((Jeq*Ra + beq*La)*s + beq*Ra + Kb*Kt);
 
 
 % Find the root using FZERO
