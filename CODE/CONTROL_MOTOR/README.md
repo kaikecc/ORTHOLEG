@@ -87,16 +87,16 @@
 
 </b> </b>
 <p align="center">
- <b>Figura 8.</b>
- <a href="#">Tabela 1. Z-N Primeiro Método</a> 
+ <b>Tabela 1.</b>
+ <a href="#">Z-N Primeiro Método</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71670080-98f2c480-2d4d-11ea-93b4-8fef8efd4450.png" width="400" heigth="400"> 
 </p>
 
 </b> </b>
 <p align="center">
- <b>Figura 9.</b>
- <a href="#">Tabela 2. Z-N Segundo Método</a> 
+ <b>Tabela 2.</b>
+ <a href="#">Z-N Segundo Método</a> 
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71670175-e1aa7d80-2d4d-11ea-91cd-cdee83ded587.png" width="400" heigth="400"> 
 </p>
