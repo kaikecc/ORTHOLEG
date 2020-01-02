@@ -18,14 +18,7 @@
 ### 3. CONTROLADOR PID
 
 
-</b> </b>
-<p align="center">
- <b>Figura 2.</b>
- <a href="#">Diagrama de bloco do controlador PID</a> 
- <br><br>
-<img src="http://wikis.controltheorypro.com/cgi-bin/mathtex.cgi?C_%7BPID%7D%5Cleft%28s%5Cright%29%3DK_P%5Cleft%28k%2B%5Cfrac%7Bk_%7Bi%7D%7D%7Bs%7D%2Bk_%7Bd%7Ds%5Cright%29
-" width="600" heigth="600"> 
-</p>
+
 
 </b> </b>
 <p align="center">
@@ -46,7 +39,7 @@
  <b>Figura 6.</b>
  <a href="#">Função de Transferência do Motor</a> 
  <br><br>
-<img src="http://latex.codecogs.com/gif.latex?G%28s%29%20%3D%20%5Cfrac%7B0.0302%7D%7B1.164%20*%2010%5E%7B-9%7D%20*%20s%5E%7B2%7D%20&plus;%206.705%20*%2010%5E%7B-6%7D%20*s%20&plus;%200.01794%7D" width="600" heigth="600"> 
+<img src="http://latex.codecogs.com/gif.latex?G%28s%29%20%3D%20%5Cfrac%7B0.0302%7D%7B1.164%20*%2010%5E%7B-9%7D%20*%20s%5E%7B2%7D%20&plus;%206.705%20*%2010%5E%7B-6%7D%20*s%20&plus;%200.01794%7D" width="200" heigth="200"> 
 </p>
 
 ### 6. RESULTADOS E ANÁLISE
