@@ -20,12 +20,13 @@
 
 
 
+
 </b> </b>
 <p align="center">
  <b>Figura 2.</b>
  <a href="#">Diagrama de bloco do controlador PID</a> 
  <br><br>
-<img src="https://i.pinimg.com/originals/b2/3a/3e/b23a3e0e58f4fd2bb2845351fe878368.png" width="600" heigth="600"> 
+<img src="https://user-images.githubusercontent.com/42541528/71668812-21bb3180-2d49-11ea-87fb-d4767ecacd70.png" width="600" heigth="600"> 
 </p>
 
 ### 4. SINTONIZANDO POR ZIEGLER-NICHOLS
