@@ -72,4 +72,5 @@
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71667929-d3586380-2d45-11ea-8585-82ee4c63034a.png" width="600" heigth="600"> 
 </p>
-### 7. CONCLUSÃO
+
+### 7. CONCLUSÃO </b> </b>
