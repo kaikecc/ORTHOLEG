@@ -41,4 +41,32 @@
 
 ### 6. RESULTADOS E ANÁLISE
 
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 7.</b>
+ <a href="#">Curva de Resposta Z-N motor DC</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71667843-85436000-2d45-11ea-8f59-0db2eb9d9b0b.png" width="600" heigth="600"> 
+</p>
+
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 8.</b>
+ <a href="#">Curva de Resposta Z-N motor DC com zoom</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71667892-b754c200-2d45-11ea-8315-6d6a82db1cd5.png" width="600" heigth="600"> 
+</p>
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 9.</b>
+ <a href="#">Z-N Closed Loop Response</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71667929-d3586380-2d45-11ea-8585-82ee4c63034a.png" width="600" heigth="600"> 
+</p>
 ### 7. CONCLUSÃO
