@@ -45,18 +45,3 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 </p>
 
 
-<p align="center">
- <b>Figura 4.</b>
- <a href="#">Os marcados target1 e target2</a> 
- <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/68328912-f8ff1e80-00ae-11ea-9b9d-9f79a39d9f77.png" width="600" heigth="600"> 
-</p>
-
-
-
-<p align="center">
- <b>Figura 5.</b>
- <a href="#">PWM do direito e esquerdo</a> 
- <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/68331085-1cc46380-00b3-11ea-8c35-2e43ef6f0bd9.png" width="600" heigth="600"> 
-</p>
