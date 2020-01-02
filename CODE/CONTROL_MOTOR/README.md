@@ -61,7 +61,7 @@
 
 ### 4. SINTONIZANDO POR ZIEGLER-NICHOLS
 
-![exp3]()
+
 
 </b> </b>
 <p align="center">
@@ -81,6 +81,7 @@
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71669888-f8040980-2d4c-11ea-9139-226c0046f2d6.png" width="400" heigth="400"> 
 </p>
+
 ### 5. SIMULAÇÃO E ANÁLISE
 
 
