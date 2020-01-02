@@ -44,3 +44,10 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 </p>
 
 
+<p align="center">
+ <b>Figura 4.</b>
+ <a href="#">Track de pulsos pela função implentada no arduino</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71664940-ca619500-2d39-11ea-9b5e-395f7cb5966f.png" width="600" heigth="600"> 
+</p>
+
