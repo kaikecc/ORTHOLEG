@@ -9,14 +9,14 @@ Os motores CC de passo, escovado ou sem escova não fornecem nenhum tipo de feed
 
 > [Encoder](https://www.hitecnologia.com.br/blog/o-que-%C3%A9-encoder-para-que-serve-como-escolher-como-interfacear) são dispositivos/sensores eletro-mecânicos cuja funcionalidade é transformar posição em sinal elétrico digital. Com a utilização de encoders é possível quantizar distâncias, controlar velocidades, medir ângulos, número de rotações, realizar posicionamentos, rotacionar braços robóticos e etc.
 
-### 2. MATERIAIS E MÉTODOS
+### 2. MATERIAIS E MÉTODOS </b> </b>
 
 
-#### 2.1 Fixa Técnica do Encoder HEDL 5540
+#### 2.1 Fixa Técnica do Encoder HEDL 5540 </b> </b>
 
 Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is-encoder-ppr-cpr-and-lpr) (Contagem Por Revolução) e refere-se ao número de estados decodificados em quadratura que existem entre as duas saídas A e B. A frequência máxima de operação é de 100kHz com velocidade em torno de 12000 rpm.
 
-
+</b> </b>
 <p align="center">
  <b>Figura 1.</b>
  <a href="#">Encoder HEDL 5540</a> 
@@ -24,7 +24,7 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 <img src="https://user-images.githubusercontent.com/42541528/68326961-382b7080-00ab-11ea-95a4-aa0eb6415b51.png" width="600" heigth="800"> 
 </p>
 
-
+</b> </b>
 <p align="center">
  <b>Figura 2.</b>
  <a href="#">Ficha técnica do encoder</a> 
@@ -32,8 +32,11 @@ Esse encoder, Figura 1, possui 500 [CPR](https://www.cuidevices.com/blog/what-is
 <img src="https://user-images.githubusercontent.com/42541528/68327411-0f57ab00-00ac-11ea-9560-f6f9de8a119e.png" width="600" heigth="800"> 
 </p>
 
-#### 2.2 Implementação do código
+#### 2.2 Implementação do código </b> </b>
 
+O desenvolvimento do código para a leitura dos pulsos do encoder foi feita otimizando a mémoria e tempo de execução e com isso a técnica de [PCINT](https://portal.vidadesilicio.com.br/pcint-interrupcoes-por-mudanca-de-estado/) que utiliza interrupção por mudança de estado do pino escolhido foi a melhor encontrada para a implementação do algotimo. Na Figura 3 mostra o diagrama do código e dentro do retângulo vermelho a função **COUNTER PULSES** responsável pela incrementação ou decrementação dos pulsos do encoder. 
+
+</b> </b>
 
 <p align="center">
  <b>Figura 3.</b>
