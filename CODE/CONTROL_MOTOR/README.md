@@ -39,6 +39,16 @@
 
 ### 5. SIMULAÇÃO E ANÁLISE
 
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 6.</b>
+ <a href="#">Função de Transferência do Motor</a> 
+ <br><br>
+<img src="http://latex.codecogs.com/gif.latex?G%28s%29%20%3D%20%5Cfrac%7B0.0302%7D%7B1.164%20*%2010%5E%7B-9%7D%20*%20s%5E%7B2%7D%20&plus;%206.705%20*%2010%5E%7B-6%7D%20*s%20&plus;%200.01794%7D" width="600" heigth="600"> 
+</p>
+
 ### 6. RESULTADOS E ANÁLISE
 
 
