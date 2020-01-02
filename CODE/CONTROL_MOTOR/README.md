@@ -104,4 +104,14 @@
 <img src="https://user-images.githubusercontent.com/42541528/71667929-d3586380-2d45-11ea-8585-82ee4c63034a.png" width="600" heigth="600"> 
 </p>
 
+
+
+</b> </b>
+<p align="center">
+ <b>Figura 10.</b>
+ <a href="#">Resposta ao degrau</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71669514-ac049500-2d4b-11ea-83ba-de9f1af4a15a.png" width="600" heigth="600"> 
+</p>
+
 ### 7. CONCLUSÃO </b> </b>
