@@ -27,6 +27,11 @@
 
 
 
+
+
+### 3. CONTROLADOR PID
+
+
 </b> </b>
 <p align="center">
  <b>Figura 3.</b>
@@ -36,11 +41,15 @@
 </p>
 
 
-### 3. CONTROLADOR PID
 
 
-
-
+</b> </b>
+<p align="center">
+ <b>Figura 4.</b>
+ <a href="#">Expressão do PID</a> 
+ <br><br>
+<img src="https://user-images.githubusercontent.com/42541528/71669319-09e4ad00-2d4b-11ea-877c-5a71cc2a82ba.png" width="400" heigth="400"> 
+</p>
 
 </b> </b>
 <p align="center">
