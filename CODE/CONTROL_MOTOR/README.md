@@ -48,7 +48,7 @@
  <b>Figura 4.</b>
  <a href="#">Função de transferência do PID</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71669319-09e4ad00-2d4b-11ea-877c-5a71cc2a82ba.png" width="300" heigth="300"> 
+<img src="https://user-images.githubusercontent.com/42541528/71669319-09e4ad00-2d4b-11ea-877c-5a71cc2a82ba.png" width="200" heigth="200"> 
 </p>
 
 </b> </b>
@@ -68,7 +68,7 @@
  <b>Figura 6.</b>
  <a href="#">Modelo da planta</a> 
  <br><br>
-<img src="https://user-images.githubusercontent.com/42541528/71669820-c5f2a780-2d4c-11ea-96dc-fcd5769c3b53.png" width="300" heigth="300"> 
+<img src="https://user-images.githubusercontent.com/42541528/71669820-c5f2a780-2d4c-11ea-96dc-fcd5769c3b53.png" width="200" heigth="200"> 
 </p>
 
 
