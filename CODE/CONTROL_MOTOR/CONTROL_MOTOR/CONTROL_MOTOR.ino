@@ -21,7 +21,7 @@
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
 
 #define SAMPLE_DELAY 1000  //  this gets 1 reading per second.
-#define Kb 317 // (V / rpm)
+
 
 // para couter_pulses -- 2*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
 //86E3  para show_encoder-- 4*500(CPR)*43 - Uma volta no eixo depois da redução (1:43)
@@ -29,9 +29,9 @@
 //******************** VARIÁVEIS GLOBAIS ********************
 
 //PID constants
-double kp = 5.074432375231928;
-double ki = 4.297354263433757E03;
-double kd = 2.104874723675934E-04;
+double kp = 5.07443237; // 5231928;
+double ki = 4.29735426E03; //3433757E03;
+double kd = 2.10487472E-04; //3675934E-04;
 
 unsigned long currentTime, previousTime;
 double elapsedTime;
@@ -41,12 +41,12 @@ double input, output, setPoint;
 double cumError, rateError;
 
 volatile unsigned pulse_number = 0;
-double           rpm;
-unsigned  timeold;
+float   rpm = 0.0;
+unsigned int  timeold;
 
 //Altere o numero abaixo de acordo com o seu disco encoder
-unsigned  pulsos_por_volta = 500;
-
+unsigned int pulsos_por_volta = 500;
+//unsigned Kb  = 317; // (V / rpm)
 //***********************************************************
 
 
@@ -71,7 +71,7 @@ ISR(PCINT0_vect) {
 
 void setup() {
 
- // Serial.begin(115200);
+  // Serial.begin(115200);
   DDRD |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
   DDRD |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
   DDRD |= (1 << lmdirpin); // pinMode(lmdirpin, OUTPUT);
@@ -110,18 +110,24 @@ void setup() {
   //  PORTB &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
-  setPoint = 0.0; // rpm
+  setPoint = 1500.0; // rpm
 }
 
 void loop() {
 
-  //Atualiza contador a cada segundo
-  if (millis() - timeold >= SAMPLE_DELAY) {
-    rpm = ((60000.f / pulsos_por_volta ) / ((unsigned int)millis() - timeold)) * (pulse_number / 4);
-    timeold = millis();
-    pulse_number = 0;
-  //  Serial.println(rpm);
-  }
-     setDuty_Motor_L(((computePID(rpm) * (1 / Kb)) * (100 / 24)));
+  /*
+    //Atualiza contador a cada segundo
+    if (millis() - timeold >= SAMPLE_DELAY) {
+      rpm = ((60000.f/ pulsos_por_volta) / ((unsigned int)millis() - timeold)) * (pulse_number / 4);
+
+      timeold = millis();
+      pulse_number = 0;
+    // Serial.println((rpm));
+
+    }
+  */
+
+  setDuty_Motor_L(setPoint * (1.0 / 317.0) * (100.0 / 24.0)); // 317 (V / rpm)
+
 
 }
