@@ -132,6 +132,13 @@
 <img src="http://latex.codecogs.com/gif.latex?G%28s%29%20%3D%20%5Cfrac%7B0.0302%7D%7B1.164%20*%2010%5E%7B-9%7D%20*%20s%5E%7B2%7D%20&plus;%206.705%20*%2010%5E%7B-6%7D%20*s%20&plus;%200.01794%7D" width="400" heigth="400"> 
 </p>
 
+</b> </b>
+<p align="center">
+ <b>Figura 11.</b>
+ <a href="#">Função de Transferência PID</a> 
+ <br><br>
+<img src="http://latex.codecogs.com/gif.latex?K%28s%29%20%3D%20%5Cfrac%7B2.485*10%5E%7B-12%7D*s%5E%7B2%7D%20&plus;%200.005992*s%20&plus;%205.074%7D%7B0.001181%7D" width="400" heigth="400"> 
+</p>
 ### 6. RESULTADOS E ANÁLISE
 
 
