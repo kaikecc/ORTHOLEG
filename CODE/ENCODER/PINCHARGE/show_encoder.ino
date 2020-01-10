@@ -12,7 +12,7 @@ void show_encoder() {
   {
 
     //  Serial.print("Counter value: ");
-   // Serial.println(counter, DEC);
+    Serial.println(counter, DEC);
 
     counter += tmpdata;
   }

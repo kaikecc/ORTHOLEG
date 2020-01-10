@@ -1,6 +1,6 @@
 void setDuty_Motor_L(float value) {
 
-  int duty;
+  byte duty;
 
   value = value / 100;
 
