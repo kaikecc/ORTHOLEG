@@ -68,6 +68,12 @@ Um atuador comum em sistemas de controle é o motor CC. Ele fornece movimento ro
 <img src="https://user-images.githubusercontent.com/42541528/71669319-09e4ad00-2d4b-11ea-877c-5a71cc2a82ba.png" width="200" heigth="200"> 
 </p>
 
+Aumentar o ganho proporcional **K_p** tem o efeito de aumentar proporcionalmente o sinal de controle para o mesmo nível de erro. O fato de o controlador "pressionar" com mais força por um determinado nível de erro tende a fazer com que o sistema de circuito fechado reaja mais rapidamente, mas também a ultrapassar mais. Outro efeito do aumento de **K_p** é que ele tende a reduzir, mas não a eliminar, o erro de estado estacionário.
+
+A adição de um termo derivativo ao controlador **K_d** adiciona a capacidade do controlador de "antecipar" o erro. Com um controle proporcional simples, se **K_p** for corrigido, a única maneira de aumentar o controle é se o erro aumentar. Com o controle derivativo, o sinal de controle pode se tornar grande se o erro começar a subir, mesmo enquanto a magnitude do erro ainda seja relativamente pequena. Essa antecipação tende a adicionar amortecimento ao sistema, diminuindo assim o excesso. A adição de um termo derivado, no entanto, não afeta o erro de estado estacionário.
+
+A adição de um termo integral ao controlador **K_i** tende a ajudar a reduzir o erro no estado estacionário. Se houver um erro persistente e constante, o integrador cria e constrói, aumentando assim o sinal de controle e diminuindo o erro. Uma desvantagem do termo integral, no entanto, é que ele pode tornar o sistema mais lento (e oscilatório), pois quando o sinal de erro muda de sinal, pode demorar um pouco para o integrador "relaxar".
+
 </b> </b>
 <p align="center">
  <b>Figura 6.</b>
