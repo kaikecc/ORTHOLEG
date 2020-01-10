@@ -22,9 +22,6 @@ Um atuador comum em sistemas de controle é o motor CC. Ele fornece movimento ro
 <img src="https://user-images.githubusercontent.com/42541528/71666447-97ba9b00-2d3f-11ea-8d54-44e231f2bcea.png" width="400" heigth="400"> 
 </p>
 
-
-
-
 </b> </b>
 <p align="center">
  <b>Figura 2.</b>
@@ -41,10 +38,6 @@ Um atuador comum em sistemas de controle é o motor CC. Ele fornece movimento ro
  <br><br>
 <img src="https://user-images.githubusercontent.com/42541528/71668848-4ca58580-2d49-11ea-9cd7-3c787827d6f8.png" width="600" heigth="600"> 
 </p>
-
-
-
-
 
 ### 3. CONTROLADOR PID
 
@@ -126,7 +119,16 @@ A adição de um termo integral ao controlador **K_i** tende a ajudar a reduzir 
 
 ### 5. SIMULAÇÃO E ANÁLISE
 
+* Dados do motor: </b> </b>
 
+* **Kt =** 30.2 * 1E-3;  % Constante de Torque do Motor (m.N / A)
+* **Kb =** pi / 317*30;  % back emf constant (V.s / rad)
+* **Ra =** 0.299;        % Resistência do Motor (R)
+* **La =** 0.082 * 1E-3; % Indutância do Motor (H)
+* **J1 =** 14.2 * 1E-6;  % Momento de Inércia do Motor (kg.m^3)
+* **tq1 =** 177 * 1E-3;  % Torque Nominal do Motor (m.N)
+* **v1 =** 6940*(pi/30); % Velocidade Angular Nominal do Motor (rad / s) 
+* **b1 =** (3.14*30*1E-3) / pi;  % Coeficiente de Viscosidade do Motor (m.N / rad/s) 
 
 
 </b> </b>
