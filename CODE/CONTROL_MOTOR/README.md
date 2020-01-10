@@ -12,7 +12,7 @@ técnica de otimização de enxame de partículas ou a técnica combinação ent
 </b> </b>
 ### 2. MODELO MATEMÁTICO MOTOR DC </b> </b>
 
-
+Um atuador comum em sistemas de controle é o motor CC. Ele fornece movimento rotativo diretamente e, juntamente com rodas ou tambores e cabos, pode fornecer movimento de translação. O circuito equivalente elétrico da armadura e o diagrama de corpo livre do rotor são mostrados na figura 1 a seguir.
 
 </b> </b>
 <p align="center">
