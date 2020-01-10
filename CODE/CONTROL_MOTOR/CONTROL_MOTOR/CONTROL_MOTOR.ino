@@ -17,8 +17,36 @@
 #define  toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg)) // técnica de bitwise para alternar os estados
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
 
+//******************** VARIÁVEIS GLOBAIS ********************
+
+//PID constants
+double kp = 5.07443237; // 5231928;
+double ki = 4.29735426E03; //3433757E03;
+double kd = 2.10487472E-04; //3675934E-04;
+
+unsigned long currentTime, previousTime;
+double elapsedTime;
+double error;
+double lastError;
+double input, output;
+double cumError, rateError;
+
 volatile long pulse_number = 0x00;
-volatile int rpm = 0x00;
+volatile long counter = 0x00;
+volatile float rpm = 0.0;
+float dt = 0.0;
+float setPoint = 200.0;
+/***********************************************************/
+
+// =============================   Protótipo das Funções =================================================
+
+void setDuty_Motor_L();
+void setDuty_Motor_R();
+void counter_pulses();
+void setFrequency(char option);
+double computePID(double inp);
+// ========================================================================================================
+
 
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
@@ -28,22 +56,19 @@ ISR(PCINT0_vect) {
 // --- Constantes ---
 const uint16_t T1_init = 0;
 // ~ 100 ms
-const uint16_t T1_comp = 62500;// (tempo x freq) / prescaler =
+const uint16_t T1_comp = 6250;// (tempo x freq) / prescaler =
 // prescaler: 256
 
 // --- Interrupção ---
 ISR(TIMER1_COMPA_vect)
 {
   //Altere o numero abaixo de acordo com o seu disco encoder
-  static int pulsos_por_volta = 500;
+  static float pulsos_por_volta = 500.0;
 
   TCNT1 = T1_init;      //reinicializa TIMER1
 
-  rpm = (((pulse_number/2) * 60) / pulsos_por_volta) / 1; // 1 s
+  rpm = (((float(abs(pulse_number)) / 2.0 ) * 60.0) / pulsos_por_volta) / 0.1; // 1 s
   pulse_number = 0;
-
-  Serial.println(rpm);
-
 } //end ISR
 
 //**********************   END ISR *******************************
@@ -75,7 +100,7 @@ void setup() {
 
   sei();
 
-  //***************************************************
+  //**************************************************************************************
 
 
   // ************************** CONFIG. TIMER1 *******************************************
@@ -94,13 +119,13 @@ void setup() {
   //Habilita Interrupção do Timer1
   TIMSK1 = (1 << OCIE1A);
 
-  //****************************** END TIMER1 *************************************
+  //****************************** END TIMER1 ********************************************
 
 
   TCCR2A = 0xA3; // 1010 0011
   setFrequency(1); // ~  62.5 kHz
-
-  setDuty_Motor_L(20.0);
+  dt = 100 * (setPoint + 0.177 * 3140.0) / (317.0 * 24.0);
+  setDuty_Motor_L(dt);
   // PORTB |= (1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
   PORTB &= ~(1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
@@ -110,15 +135,15 @@ void setup() {
   //  PORTD &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
+  Serial.println(dt);
 }
 
 
 void loop() {
 
   /*
-  if (abs(pulse_number) > 43000) {
-    setDuty_Motor_L(0.0);
-
-  }
-*/
+    if (abs(counter) > 43000) { // DÁ UMA VOLTA
+      setDuty_Motor_L(0.0);
+    }
+  */
 }

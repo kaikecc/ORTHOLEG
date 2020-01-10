@@ -14,7 +14,8 @@ void counter_pulses() {
   } //end if
   ENC_last = old_state;
 
-  if (!direction_m)  pulse_number++;           //incrementa número do pulso se direction limpa
-  else              pulse_number--;           //senão decrementa
+  if (!direction_m) counter++, pulse_number++;           //incrementa número do pulso se direction limpa
+  else              counter--,pulse_number--;           //senão decrementa
+
 
 }
