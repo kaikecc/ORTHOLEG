@@ -1,9 +1,16 @@
 # Controlador PID usando Método Ziegler-Nichols para Controle de Velocidade do Motor DC Maxon 
 
 
-### 1. INTRODUÇÃO
+### 1. INTRODUÇÃO </b> </b>
 
-### 2. MODELO MATEMÁTICO MOTOR DC
+Inspirar o desenvolvimento de recursos de eletrônica de potência, a motores de corrente contínua tornou-se cada vez mais útil. Atualmente, seus usos não são limitados nas aplicações automotivas (veículo elétrico), em aplicações de baixa potência usando
+sistema de bateria (motor de brinquedo) ou para tração elétrica no sistemas multimaquina também. A velocidade do motor DC pode ser
+ajustado em grande medida, de modo a fornecer fácil **controlabilidade** e  **alto desempenho**. Os controladores da velocidade
+que são concebidos para o objetivo de controlar a velocidade do motor DC executar uma variedade de tarefas, é de várias formas convencionais e controladores numéricos, os controladores podem ser: PID Controlador, Controlador Lógico Difuso, Algoritmo Genético
+técnica de otimização de enxame de partículas ou a técnica combinação entre eles: Redes Fuzzy-Neurais, Algoritmo FuzzyGenetic, Colônia Fuzzy-Formigas, Fuzzy-Swarm. Dentro 1942, Ziegler-Nichols apresentou uma fórmula de ajuste, com base no tempo de resposta e experiências.
+
+</b> </b>
+### 2. MODELO MATEMÁTICO MOTOR DC </b> </b>
 
 
 
