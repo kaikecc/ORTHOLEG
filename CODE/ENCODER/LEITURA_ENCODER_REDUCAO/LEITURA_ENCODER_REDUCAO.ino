@@ -26,7 +26,7 @@
 #define   gnd      4
 #define   pino_D0  3
 #define   analog   2
-#define      n     10        //número de pontos da média móvel 
+#define      n     50        //número de pontos da média móvel 
 
 
 
@@ -34,21 +34,21 @@
 
 // ===============================================================================
 // --- Protótipo da Função ---
-long moving_average();       //Função para filtro de média móvel
+float moving_average();       //Função para filtro de média móvel
 
 
 // ===============================================================================
 // --- Variáveis Globais ---
-int       original,          //recebe o valor de AN0
-          filtrado;          //recebe o valor original filtrado
+float       original,          //recebe o valor de AN0
+            filtrado;          //recebe o valor original filtrado
 
-int       numbers[n];        //vetor com os valores para média móvel
+float       numbers[n];        //vetor com os valores para média móvel
 
 
 
 // ===============================================================================
 // --- Variáveis Globais ---
-int           rpm;
+float           rpm;
 volatile byte pulsos;
 unsigned long timeold;
 
@@ -62,7 +62,7 @@ void contador()
 {
   //Incrementa contador
   pulsos++;
- 
+
 
 }
 
@@ -103,15 +103,18 @@ void loop()
     //Desabilita interrupcao durante o calculo
     detachInterrupt(1);
 
-    rpm = ((60 * 1000 / pulsos_por_volta ) / (millis() - timeold)) * (pulsos/4);
+   
+    rpm = ((((float)abs(pulsos) / 4.0 ) * 60000.0) / 20.0) / (float)(millis() - timeold);
+
     original = rpm;
-   // filtrado = moving_average();
+    filtrado = moving_average();
     timeold = millis();
     pulsos = 0;
 
     //Mostra o valor de RPM no serial monitor
-    Serial.print("RPM = ");
-    Serial.println(rpm, DEC);
+    Serial.print(rpm);
+    Serial.print("\t");
+    Serial.println(filtrado);
 
     //Habilita interrupcao
     attachInterrupt(1, contador, FALLING);
@@ -121,7 +124,7 @@ void loop()
 
 // ===============================================================================
 // --- Desenvolvimento da Função ---
-long moving_average()
+float moving_average()
 {
 
   //desloca os elementos do vetor de média móvel
@@ -129,7 +132,7 @@ long moving_average()
 
   numbers[0] = original; //posição inicial do vetor recebe a leitura original
 
-  long acc = 0;          //acumulador para somar os pontos da média móvel
+  float acc = 0;          //acumulador para somar os pontos da média móvel
 
   for (int i = 0; i < n; i++) acc += numbers[i]; //faz a somatória do número de pontos
 

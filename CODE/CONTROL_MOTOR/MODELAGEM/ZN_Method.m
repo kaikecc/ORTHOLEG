@@ -2,13 +2,13 @@ clear all, close all, clc
 
 % Dados do motor
 Kt = 30.2 * 1E-3;  % Constante de Torque do Motor (m.N / A)
-Kb = pi / 317*30;  % back emf constant (V.s / rad)
+Kb = 30 / 317*pi;  % back emf constant (V.s / rad)
 Ra = 0.299;        % Resistência do Motor (R)
 La = 0.082 * 1E-3; % Indutância do Motor (H)
 J1 = 14.2 * 1E-6;  % Momento de Inércia do Motor (kg.m^3)
 tq1 = 177 * 1E-3;  % Torque Nominal do Motor (m.N)
 v1 = 6940*(pi/30); % Velocidade Angular Nominal do Motor (rad / s) 
-b1 = (3.14*30*1E-3) / pi;  % Coeficiente de Viscosidade do Motor (m.N / rad/s) 
+b1 = 1 / (((3.14 / 1E-3) * pi) / 30);  % Coeficiente de Viscosidade do Motor (m.N / rad/s) 
 
 % Dados da Caixa de Redução
 N1 = 8;
