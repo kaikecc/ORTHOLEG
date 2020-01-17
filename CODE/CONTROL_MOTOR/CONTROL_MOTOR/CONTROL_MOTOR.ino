@@ -1,4 +1,89 @@
-#include "PID.cpp"
+class PID {
+  public:
+
+    double error;
+    double sample;
+    double lastSample;
+    double kP, kI, kD;
+    double P , I , D;
+    double pid;
+    double deltaTime;
+    double outMin, outMax;
+    double setPoint, Output;
+    double ITerm, dInput;
+
+
+    PID(double _kP, double _kI, double _kD) {
+
+      if (_kD < 0 || _kI < 0 || _kD < 0) return;
+
+      kP = _kP;
+      kI = _kI;
+      kD = _kD;
+
+    }
+
+    void addNewSample(double _sample) {
+
+      sample = _sample;
+
+    }
+
+    void setSetPoint(double _setPoint) {
+      setPoint = _setPoint;
+    }
+
+    void SetOutputLimit(double Min, double Max, double _deltaTime)
+    {
+      deltaTime = _deltaTime;
+
+      if (Min > Max) return;
+      outMin = Min;
+      outMax = Max;
+
+      if (Output > outMax) Output = outMax;
+      else if (Output < outMin) Output = outMin;
+
+      if (ITerm > outMax) ITerm = outMax;
+      else if (ITerm < outMin) ITerm = outMin;
+    }
+
+    double process() {
+
+
+      // Implementação P I D
+
+      error = setPoint - sample;
+
+      ITerm += (kI * error) * deltaTime;
+
+      if (ITerm > outMax) ITerm = outMax;
+      else if (ITerm < outMin) ITerm = outMin;
+
+      dInput = (sample - lastSample);
+
+      //P
+      P = error * kP;
+
+      //I
+      I = ITerm;
+
+      //D
+      D = (kD * dInput) / deltaTime;
+
+      // Soma tudo
+      pid = P + I + D;
+
+      Output = pid +  (100 * (setPoint + 0.177 * 3140.0) / (317.0 * 24.0));
+
+      if (Output > outMax) Output = outMax;
+      else if (Output < outMin) Output = outMin;
+
+      lastSample = sample;
+
+      return Output;
+    }
+};
 
 // --- Mapeamento de Hardware ---
 #define ENC_A PB5 // D13 - encoder A
@@ -21,11 +106,12 @@
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
 
+PID meuPid(0.0, 0.5, 0.0);
 
 volatile long pulse_number = 0x00;
 volatile long counter = 0x00;
 volatile double rpm = 0.0;
-volatile double speedHz = 0.0;
+
 /********************************************************************************************************/
 
 // =============================   Protótipo das Funções =================================================
@@ -46,13 +132,13 @@ ISR(PCINT0_vect) {
 
 // --- Constantes ---
 const uint16_t T1_init = 0;
-// ~ 0.275 ms
-const uint16_t T1_comp = 17;// (tempo x freq) / prescaler =
+// Te = L/R = 0.0823E-3 / 0.299 =~ 17
+// 17 --> ~ 0.275 ms
+const uint16_t T1_comp = 6250;// (tempo x freq) / prescaler =
 // prescaler: 256
 
-double tempo  = ((double)T1_comp * 256.0) / 16.0E6; // ~ 0.275 ms
+const double tempo  = ((double)T1_comp * 256.0) / 16.0E6; // ~ 0.275 ms
 
-PID meuPid(0.0, 147.3728, 0.0, tempo);
 
 // --- Interrupção ---
 ISR(TIMER1_COMPA_vect)
@@ -63,22 +149,22 @@ ISR(TIMER1_COMPA_vect)
   TCNT1 = T1_init;      //reinicializa TIMER1
 
   rpm = (((double(abs(pulse_number)) / 2.0 ) * 60.0) / pulsos_por_volta) / tempo;
-  //  speedHz = abs(pulse_number) / (pulsos_por_volta * tempo * 2.0);
+
   pulse_number = 0;
 
-  meuPid.addNewSample(rpm * (PI / 30));
-
-  setDuty_Motor_L(meuPid.process());
+  meuPid.addNewSample(rpm * (PI / 30.0));
+  meuPid.process();
+  setDuty_Motor_L(meuPid.Output);
+  // Serial.println(meuPid.error);
 
 } //end ISR
-
-
 
 //**********************   END ISR *******************************
 
 void setup() {
 
-  Serial.begin(115200);
+
+  // Serial.begin(115200);
 
   DDRD |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
   DDRD |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
@@ -107,7 +193,7 @@ void setup() {
   //******************************* END PCINT *******************************************
 
 
-  // ************************** CONFIG. TIMER1 *******************************************
+  // **************************** CONFIG. TIMER1 ****************************************
   //Modo de Comparação
   TCCR1A = 0;
 
@@ -128,7 +214,7 @@ void setup() {
   TCCR2A = 0xA3; // 1010 0011
   setFrequency(1); // ~  62.5 kHz
 
-  setDuty_Motor_L(10.0);// CONTROLE DO MOTOR ESQUERDO
+  setDuty_Motor_L(0.0);// CONTROLE DO MOTOR ESQUERDO
   // PORTB |= (1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
   PORTB &= ~(1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
@@ -138,16 +224,14 @@ void setup() {
   //  PORTD &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
-  meuPid.setSetPoint(250.0 * (PI / 30)); // 250 rpm
-  meuPid.SetOutputLimit(0.0, 100.0);
-
-  //setDuty_Motor_L(100 * (250.0 + 0.177 * 3140.0) / (317.0 * 24.0));
+  meuPid.setSetPoint(600.0 * (PI / 30.0)); // 250 rpm
+  meuPid.SetOutputLimit(0.0, 100.0, tempo);
 
 }
 
 
 void loop() {
 
-  if (abs(counter) > 20 * 43000) setDuty_Motor_L(0.0); // DÁ UMA VOLTA
+  if (abs(counter) > 5 * 43000) setDuty_Motor_L(0.0); // DÁ UMA VOLTA
 
 }
