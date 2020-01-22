@@ -96,15 +96,14 @@ void setup()
 void loop()
 {
 
-
   //Atualiza contador a cada segundo
-  if (millis() - timeold >= 1000)
+  if (millis() - timeold >= 100)
   {
     //Desabilita interrupcao durante o calculo
     detachInterrupt(1);
 
    
-    rpm = ((((float)abs(pulsos) / 4.0 ) * 60000.0) / 20.0) / (float)(millis() - timeold);
+    rpm = ((((float)abs(pulsos)) * 60000.0) / 20.0) / (float)(millis() - timeold);
 
     original = rpm;
     filtrado = moving_average();

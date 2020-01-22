@@ -1,3 +1,5 @@
+#include <Wire.h>
+#include <stdlib.h>
 class PID {
   public:
 
@@ -33,9 +35,8 @@ class PID {
       setPoint = _setPoint;
     }
 
-    void SetOutputLimit(double Min, double Max, double _deltaTime)
+    void SetOutputLimit(double Min, double Max)
     {
-      deltaTime = _deltaTime;
 
       if (Min > Max) return;
       outMin = Min;
@@ -48,9 +49,9 @@ class PID {
       else if (ITerm < outMin) ITerm = outMin;
     }
 
-    double process() {
+    double process(double _deltaTime) {
 
-
+      deltaTime = _deltaTime;
       // Implementação P I D
 
       error = setPoint - sample;
@@ -85,6 +86,7 @@ class PID {
     }
 };
 
+
 // --- Mapeamento de Hardware ---
 #define ENC_A PB5 // D13 - encoder A
 #define ENC_B PB4 // D12 - encoder B
@@ -103,6 +105,15 @@ class PID {
 #define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg))    // técnica de bitwise para ativar o reg especifico
 #define  toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg)) // técnica de bitwise para alternar os estados
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
+
+
+//**************************************** I2C ********************************
+#define SLAVE_ADDRESS 0x18
+
+
+String inString = "";
+double speeD = 0.0F;
+//********************************************************************************
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
 
@@ -132,8 +143,7 @@ ISR(PCINT0_vect) {
 
 // --- Constantes ---
 const uint16_t T1_init = 0;
-// Te = L/R = 0.0823E-3 / 0.299 =~ 17
-// 17 --> ~ 0.275 ms
+// ~ 100ms
 const uint16_t T1_comp = 6250;// (tempo x freq) / prescaler =
 // prescaler: 256
 
@@ -143,6 +153,7 @@ const double tempo  = ((double)T1_comp * 256.0) / 16.0E6; // ~ 0.275 ms
 // --- Interrupção ---
 ISR(TIMER1_COMPA_vect)
 {
+  set_bit(PORTD, PD7);
   //Altere o numero abaixo de acordo com o seu disco encoder
   static double pulsos_por_volta = 500.0;
 
@@ -153,18 +164,23 @@ ISR(TIMER1_COMPA_vect)
   pulse_number = 0;
 
   meuPid.addNewSample(rpm * (PI / 30.0));
-  meuPid.process();
-  setDuty_Motor_L(meuPid.Output);
-  // Serial.println(meuPid.error);
+  meuPid.process(tempo);
+  //  setDuty_Motor_L(meuPid.Output);
 
+
+
+  reset_bit(PORTD, PD7);
 } //end ISR
 
 //**********************   END ISR *******************************
 
 void setup() {
 
-
-  // Serial.begin(115200);
+  Serial.begin(115200);
+  Wire.begin(SLAVE_ADDRESS );
+  Wire.onRequest(requestEvent);
+  Wire.onReceive(receiveEvent);
+  Wire.setClock(3400000);
 
   DDRD |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
   DDRD |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
@@ -175,6 +191,8 @@ void setup() {
   DDRB |= (1 << rmbrkpin); // pinMode(lmbrkpin, OUTPUT);
   DDRD |= (1 << rmdirpin); // pinMode(lmdirpin, OUTPUT);
   DDRC &= ~(1 << rmcurpin); // pinMode(lmcurpin, INPUT);
+
+  DDRD |= (1 << PD7); //  pinMode(target2, OUTPUT);
 
   //************************** PCINT CHARGE INTERRUPT **********************************
 
@@ -214,7 +232,7 @@ void setup() {
   TCCR2A = 0xA3; // 1010 0011
   setFrequency(1); // ~  62.5 kHz
 
-  setDuty_Motor_L(0.0);// CONTROLE DO MOTOR ESQUERDO
+  setDuty_Motor_L(double(speeD));// CONTROLE DO MOTOR ESQUERDO
   // PORTB |= (1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
   PORTB &= ~(1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
@@ -224,14 +242,16 @@ void setup() {
   //  PORTD &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
-  meuPid.setSetPoint(600.0 * (PI / 30.0)); // 250 rpm
-  meuPid.SetOutputLimit(0.0, 100.0, tempo);
+  meuPid.setSetPoint(0.0 * (PI / 30.0)); // 200 rpm
+  meuPid.SetOutputLimit(0.0, 100.0);
 
 }
 
 
 void loop() {
 
-  if (abs(counter) > 5 * 43000) setDuty_Motor_L(0.0); // DÁ UMA VOLTA
+  if (abs(counter) > 20 * 43000) setDuty_Motor_L(0.0); // DÁ UMA VOLTA
+  
+ 
 
 }
