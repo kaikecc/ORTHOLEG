@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <stdlib.h>
+
 class PID {
   public:
 
@@ -112,7 +112,7 @@ class PID {
 
 
 String inString = "";
-double speeD = 0.0F;
+float speeD = 0.0F;
 //********************************************************************************
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
@@ -165,9 +165,7 @@ ISR(TIMER1_COMPA_vect)
 
   meuPid.addNewSample(rpm * (PI / 30.0));
   meuPid.process(tempo);
-  //  setDuty_Motor_L(meuPid.Output);
-
-
+  setDuty_Motor_L(meuPid.Output);
 
   reset_bit(PORTD, PD7);
 } //end ISR
@@ -232,7 +230,7 @@ void setup() {
   TCCR2A = 0xA3; // 1010 0011
   setFrequency(1); // ~  62.5 kHz
 
-  setDuty_Motor_L(double(speeD));// CONTROLE DO MOTOR ESQUERDO
+  setDuty_Motor_L(0.0);// CONTROLE DO MOTOR ESQUERDO
   // PORTB |= (1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
   PORTB &= ~(1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
@@ -251,7 +249,5 @@ void setup() {
 void loop() {
 
   if (abs(counter) > 20 * 43000) setDuty_Motor_L(0.0); // DÁ UMA VOLTA
-  
  
-
-}
+ }

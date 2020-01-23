@@ -19,8 +19,7 @@ bus.write_byte(address,0xFF)
 
 while True:
 	#Receives the data from the User
-    #value=bus.read_byte(address)
-    value=bus.read_block_data(address,4)
+    value=bus.read_byte(address)
     print("VELOCIDADE: %02f" % value)
     time.sleep(.1)
 

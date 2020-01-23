@@ -6,5 +6,5 @@ void setDuty_Motor_L(double value) {
 
   duty = (value * 256) - 1;
 
-  OCR2A = duty;
+   OCR2A = duty;
 }
