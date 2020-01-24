@@ -36,6 +36,8 @@ c =  b1*Ra + Kb*Kt;
 
 P_motor = Kt /(a*s*s + b*s + c);
 
+Pos = Kt / (s*((J1*s + b1)*(La*s + Ra) + Kb*Kt));
+
 %P_motor = Kt / ((Jeq*Ra + beq*La)*s + beq*Ra + Kb*Kt);
 
 %P_motor = 0.015 / (0.01*s*s + 0.14*s + 0.40015);
@@ -43,7 +45,7 @@ P_motor = Kt /(a*s*s + b*s + c);
 
 format long
 
-[y,t] = step(P_motor);
+[y,t] = step(Pos);
 h = mean(diff(t));
 dy = gradient(y, h);                                                % Numerical Derivative
 [~,idx] = max(dy);                                                  % Index Of Maximum

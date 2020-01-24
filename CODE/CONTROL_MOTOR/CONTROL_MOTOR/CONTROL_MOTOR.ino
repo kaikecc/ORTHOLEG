@@ -1,91 +1,5 @@
 #include <Wire.h>
-
-class PID {
-  public:
-
-    double error;
-    double sample;
-    double lastSample;
-    double kP, kI, kD;
-    double P , I , D;
-    double pid;
-    double deltaTime;
-    double outMin, outMax;
-    double setPoint, Output;
-    double ITerm, dInput;
-
-
-    PID(double _kP, double _kI, double _kD) {
-
-      if (_kD < 0 || _kI < 0 || _kD < 0) return;
-
-      kP = _kP;
-      kI = _kI;
-      kD = _kD;
-
-    }
-
-    void addNewSample(double _sample) {
-
-      sample = _sample;
-
-    }
-
-    void setSetPoint(double _setPoint) {
-      setPoint = _setPoint;
-    }
-
-    void SetOutputLimit(double Min, double Max)
-    {
-
-      if (Min > Max) return;
-      outMin = Min;
-      outMax = Max;
-
-      if (Output > outMax) Output = outMax;
-      else if (Output < outMin) Output = outMin;
-
-      if (ITerm > outMax) ITerm = outMax;
-      else if (ITerm < outMin) ITerm = outMin;
-    }
-
-    double process(double _deltaTime) {
-
-      deltaTime = _deltaTime;
-      // Implementação P I D
-
-      error = setPoint - sample;
-
-      ITerm += (kI * error) * deltaTime;
-
-      if (ITerm > outMax) ITerm = outMax;
-      else if (ITerm < outMin) ITerm = outMin;
-
-      dInput = (sample - lastSample);
-
-      //P
-      P = error * kP;
-
-      //I
-      I = ITerm;
-
-      //D
-      D = (kD * dInput) / deltaTime;
-
-      // Soma tudo
-      pid = P + I + D;
-
-      Output = pid +  (100 * (setPoint + 0.177 * 3140.0) / (317.0 * 24.0));
-
-      if (Output > outMax) Output = outMax;
-      else if (Output < outMin) Output = outMin;
-
-      lastSample = sample;
-
-      return Output;
-    }
-};
-
+#include "PID.cpp"
 
 // --- Mapeamento de Hardware ---
 #define ENC_A PB5 // D13 - encoder A
@@ -110,14 +24,13 @@ class PID {
 //**************************************** I2C ********************************
 #define SLAVE_ADDRESS 0x18
 
-
-String inString = "";
-float speeD = 0.0F;
 //********************************************************************************
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
-
-PID meuPid(0.0, 0.5, 0.0);
+// kP = 0.0, kI = 0.5, kD = 0.0
+// Pos Kp = 0.6613, Ki = 0.0233, Kd = 0.0
+PID velPid(0.0, 0.8185, 0.0);
+PID posPid(0.6613, 0.0233, 0.0);
 
 volatile long pulse_number = 0x00;
 volatile long counter = 0x00;
@@ -153,28 +66,25 @@ const double tempo  = ((double)T1_comp * 256.0) / 16.0E6; // ~ 0.275 ms
 // --- Interrupção ---
 ISR(TIMER1_COMPA_vect)
 {
-  set_bit(PORTD, PD7);
-  //Altere o numero abaixo de acordo com o seu disco encoder
-  static double pulsos_por_volta = 500.0;
+  static unsigned pulsos_por_volta = 500;
 
   TCNT1 = T1_init;      //reinicializa TIMER1
 
-  rpm = (((double(abs(pulse_number)) / 2.0 ) * 60.0) / pulsos_por_volta) / tempo;
+  rpm = (((double(abs(pulse_number)) / 2.0 ) * 60.0) / (double)pulsos_por_volta) / tempo; // mudei aqui
 
   pulse_number = 0;
 
-  meuPid.addNewSample(rpm * (PI / 30.0));
-  meuPid.process(tempo);
-  setDuty_Motor_L(meuPid.Output);
+  velPid.addNewSample(rpm * (PI / 30.0));
+  velPid.process(tempo);
+  setDuty_Motor_L(velPid.pid + (100 * (velPid.setPoint + 0.177 * 3140.0) / (317.0 * 24.0)));
 
-  reset_bit(PORTD, PD7);
+
 } //end ISR
 
 //**********************   END ISR *******************************
 
 void setup() {
 
-  Serial.begin(115200);
   Wire.begin(SLAVE_ADDRESS );
   Wire.onRequest(requestEvent);
   Wire.onReceive(receiveEvent);
@@ -190,7 +100,7 @@ void setup() {
   DDRD |= (1 << rmdirpin); // pinMode(lmdirpin, OUTPUT);
   DDRC &= ~(1 << rmcurpin); // pinMode(lmcurpin, INPUT);
 
-  DDRD |= (1 << PD7); //  pinMode(target2, OUTPUT);
+  // DDRD |= (1 << PD7); //  pinMode(target2, OUTPUT);
 
   //************************** PCINT CHARGE INTERRUPT **********************************
 
@@ -240,14 +150,15 @@ void setup() {
   //  PORTD &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
-  meuPid.setSetPoint(0.0 * (PI / 30.0)); // 200 rpm
-  meuPid.SetOutputLimit(0.0, 100.0);
+  velPid.setSetPoint(0.0 * (PI / 30.0)); // 200 rpm
+  velPid.SetOutputLimit(0.0, 100.0);
 
 }
 
 
 void loop() {
 
-  if (abs(counter) > 20 * 43000) setDuty_Motor_L(0.0); // DÁ UMA VOLTA
- 
- }
+
+  // if (abs(counter) > 20 * 43000) setDuty_Motor_L(0.0); // DÁ UMA VOLTA
+
+}

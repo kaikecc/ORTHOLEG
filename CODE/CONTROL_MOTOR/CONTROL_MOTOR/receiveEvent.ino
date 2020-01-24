@@ -1,19 +1,18 @@
 void receiveEvent(int howMany) {
-
+  
+  static String inString = "";
+  static double speeD = 0.0;
+  
   int numOfBytes = Wire.available();
-  byte b = Wire.read();
+  byte cmd = Wire.read();
 
   for (int i = 0; i < numOfBytes - 1; i++) {
-    int data = Wire.read();
-    if (data != '\n') {
-      inString += (char)data;
-      speeD = inString.toFloat();
-
-    }
+    char data = Wire.read();
+    inString += (char)data;
+    speeD = inString.toDouble();
   }
-  //
-  meuPid.setSetPoint((double)speeD * (PI / 30.0)); // 200 rpm
-
+ 
+  velPid.setSetPoint(speeD * (PI / 30.0));
   inString = "";
 
 }
