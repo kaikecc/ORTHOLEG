@@ -96,6 +96,8 @@ void setup()
 void loop()
 {
 
+Serial.println(pulsos);
+/*
   //Atualiza contador a cada segundo
   if (millis() - timeold >= 100)
   {
@@ -118,7 +120,7 @@ void loop()
     //Habilita interrupcao
     attachInterrupt(1, contador, FALLING);
   }
-
+*/
 } //end loop
 
 // ===============================================================================

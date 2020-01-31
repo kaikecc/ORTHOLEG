@@ -26,26 +26,24 @@ beq = b1 + b2*(N1/N2)^2; % equivalente
 
 s = tf('s');
 
-a = J1*La;
-b = (J1*Ra + b1*La);
-c =  b1*Ra + Kb*Kt;
+%a = J1*La;
+%b = (J1*Ra + b1*La);
+%c =  b1*Ra + Kb*Kt;
 
-%b = b/a;
-%c = c/a;
-%a = a/a;
+a = Jeq*La;
+b = (Jeq*Ra + beq*La);
+c = beq*Ra + Kb*Kt;
 
-P_motor = Kt /(a*s*s + b*s + c);
+V_motor = Kt /(a*s*s + b*s + c);
 
-Pos = Kt / (s*((J1*s + b1)*(La*s + Ra) + Kb*Kt));
+P_motor = Kt / (s*(a*s*s + b*s + c));
 
-%P_motor = Kt / ((Jeq*Ra + beq*La)*s + beq*Ra + Kb*Kt);
 
-%P_motor = 0.015 / (0.01*s*s + 0.14*s + 0.40015);
 % Find the root using FZERO
 
 format long
 
-[y,t] = step(Pos);
+[y,t] = step(P_motor);
 h = mean(diff(t));
 dy = gradient(y, h);                                                % Numerical Derivative
 [~,idx] = max(dy);                                                  % Index Of Maximum
@@ -71,14 +69,12 @@ T = x - tv(1);
 K = dcgain(P_motor);
 a = (L*K) / T;
 
-Kp = 0.95 / a;
-Ti = 2.4 * T;
-Td = 0.42 * L;
 
-%Kp = 1.2 / a; % Kp = 0.95 / a;
-%Ti = 2*T;     % Ti = 1.4*T;
+
+Kp = 1.2 / a; % Kp = 0.95 / a;
+Ti = 2*T;     % Ti = 1.4*T;
 Ki = Kp/Ti;
-%Td = 0.5*L;   % Td = 0.47*L;
+Td = 0.5*L;   % Td = 0.47*L;
 
 Kd = Kp*Td;
 

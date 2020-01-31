@@ -48,9 +48,13 @@ class PID {
       else if (ITerm < outMin) ITerm = outMin;
     }
 
-    double process(double _deltaTime) {
-
+    void setSampleTime(double _deltaTime)
+    {
       deltaTime = _deltaTime;
+    }
+
+    double process() {
+
       // Implementação P I D
 
       error = setPoint - sample;
