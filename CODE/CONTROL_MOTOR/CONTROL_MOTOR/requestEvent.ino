@@ -1,8 +1,4 @@
-void requestEvent() {
-
-  char SPEED[10];
-  
-  Wire.write(dtostrf(rpm, 10, 2, SPEED));
-
-
+void requestEvent(){
+   double data = rpm;
+   Wire.write((byte*) &data, sizeof(double));
 }

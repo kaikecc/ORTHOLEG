@@ -4,25 +4,26 @@
 #GPIO2 -> SDA
 #GPIO3 -> SCL
 
-#Import the Library Requreid
-import smbus
-import time
+from smbus import SMBus
+import struct
 
-# for RPI version 1, use "bus = smbus.SMBus(0)"
-bus = smbus.SMBus(1)
+addr = 0x18
+bus = SMBus(1)
 
-# This is the address we setup in the Arduino Program
-#Slave Address 1
-address = 0x18
+numb = 1
 
-bus.write_byte(address,0xFF)
+def RequisitaDadosArduino():
+    global msg_recebida
+    dados_recebidos_Arduino = bus.read_i2c_block_data(addr, 0,11)
+    for i in range(len(dados_recebidos_Arduino)):
+        msg_recebida += chr(dados_recebidos_Arduino[i])
+    print(msg_recebida)
+    dados_recebidos_Arduino =""
+    msg_recebida = ""
+msg_recebida = ""
 
-while True:
-	#Receives the data from the User
-    value=bus.read_byte(address)
-    print("VELOCIDADE: %02f" % value)
-    time.sleep(.1)
 
-
+while numb ==1:
+    RequisitaDadosArduino()
 
 #End of the Script

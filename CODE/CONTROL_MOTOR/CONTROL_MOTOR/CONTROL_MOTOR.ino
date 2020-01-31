@@ -14,13 +14,11 @@
 //********************************************************************************
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
-// kP = 0.0, kI = 0.5, kD = 0.0
-// Pos Kp = 0.6613, Ki = 0.0233, Kd = 0.0
+
 PID velPid(0.0, 0.5, 0.0);
 PID posPid(0.001, 0.0, 0.001);
 
-volatile long pulse_number = 0x00;
-volatile long counter = 0x00;
+volatile long pulse_number = 0x00, counter = 0x00;
 volatile double rpm = 0.0;
 double ref = 1000.0 * (PI / 30.0);
 
@@ -41,7 +39,7 @@ void setFrequency(char option);
 const uint16_t T1_init = 0;
 
 const uint16_t T1_comp = 6250;// (tempo x freq) / prescaler =
-// prescaler: 256
+                                               // prescaler: 256
 
 const double tempo  = ((double)T1_comp * 256.0) / 16.0E6; // ~ 100ms
 
@@ -149,6 +147,7 @@ void setup() {
   //  PORTD |= (1 << rmdirpin); // SENTIDO HORÁRIO MOTOR DIREITO
   //  PORTD &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
+  
   // velPid.setSampleTime(tempo);
   // velPid.setSetPoint(ref); // 200 rpm
   // velPid.SetOutputLimit(0.0, 100.0);
@@ -161,6 +160,4 @@ void setup() {
 }
 
 
-void loop() {
-  // if (abs(counter) > 20 * 43000) setDuty_Motor_L(0.0);  // DÁ UMA VOLTA
-}
+void loop() {}
