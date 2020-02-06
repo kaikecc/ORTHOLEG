@@ -15,12 +15,11 @@
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
 
-PID velPid(0.0, 0.5, 0.0);
-PID posPid(0.001, 0.0, 0.001);
+PID posPid(0.621, 0.0, 0.00028555);
 
 volatile long pulse_number = 0x00, counter = 0x00;
 volatile double rpm = 0.0;
-double ref = 1000.0 * (PI / 30.0);
+double ref = 10.0;// * (PI / 30.0);
 
 /********************************************************************************************************/
 
@@ -38,8 +37,8 @@ void setFrequency(char option);
 // --- Constantes ---
 const uint16_t T1_init = 0;
 
-const uint16_t T1_comp = 6250;// (tempo x freq) / prescaler =
-                                               // prescaler: 256
+const uint16_t T1_comp = 63;// (tempo x freq) / prescaler =
+// prescaler: 256
 
 const double tempo  = ((double)T1_comp * 256.0) / 16.0E6; // ~ 100ms
 
@@ -48,7 +47,7 @@ const unsigned pulsos_por_volta = 500;
 // --- Interrupção ---
 ISR(TIMER1_COMPA_vect)
 {
-
+  
   TCNT1 = T1_init;      //reinicializa TIMER1
 
   rpm = (((double(abs(pulse_number)) / 2.0 ) * 60.0) / (double)pulsos_por_volta) / tempo; // mudei aqui
@@ -59,16 +58,9 @@ ISR(TIMER1_COMPA_vect)
   posPid.process();
 
   posPid.pid > 0 ? PORTB &= ~(1 << lmdirpin) : PORTB |= (1 << lmdirpin);
+  posPid.pid == 0 ? PORTB |= (1 << lmbrkpin) : PORTB &= ~(1 << lmbrkpin);
 
-  setDuty_Motor_L(abs(posPid.pid));
- 
-//  Serial.println(posPid.pid);
-
-  // velPid.addNewSample(rpm * (PI / 30.0));
-  // velPid.process();
-  // velPid.pid > 0 ? PORTB &= ~(1 << lmdirpin) : PORTB |= (1 << lmdirpin);
-  // setDuty_Motor_L(velPid.pid + (100 * (velPid.setPoint + 0.177 * 3140.0) / (317.0 * 24.0)));
-
+  setDuty_Motor_L(abs(posPid.pid) * (100 * (ref + 0.177 * 3140.0) / (317.0 * 24.0)));
 } //end ISR
 
 //**********************   END ISR *******************************
@@ -76,7 +68,6 @@ ISR(TIMER1_COMPA_vect)
 // Função de Tratamento de Interrupção
 ISR(PCINT0_vect) {
   counter_pulses();
-  // if (abs(counter) > 2048) counter = 0;
 
 }// end ISR
 
@@ -87,13 +78,13 @@ void setup() {
   Wire.onReceive(receiveEvent);
   Wire.setClock(3400000);
 
-  DDRD |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
-  DDRD |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
+  DDRB |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
+  DDRB |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
   DDRB |= (1 << lmdirpin); // pinMode(lmdirpin, OUTPUT);
   DDRC &= ~(1 << lmcurpin); // pinMode(lmcurpin, INPUT);
 
-  DDRB |= (1 << rmpwmpin); // pinMode(rmpwmpin, OUTPUT);
-  DDRB |= (1 << rmbrkpin); // pinMode(lmbrkpin, OUTPUT);
+  DDRD |= (1 << rmpwmpin); // pinMode(rmpwmpin, OUTPUT);
+  DDRD |= (1 << rmbrkpin); // pinMode(lmbrkpin, OUTPUT);
   DDRD |= (1 << rmdirpin); // pinMode(lmdirpin, OUTPUT);
   DDRC &= ~(1 << rmcurpin); // pinMode(lmcurpin, INPUT);
 
@@ -140,24 +131,21 @@ void setup() {
 
   setDuty_Motor_L(0.0);// CONTROLE DO MOTOR ESQUERDO
   // PORTB |= (1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
-  PORTB &= ~(1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
+  // PORTB &= ~(1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
 
   //  setDuty_Motor_R(0.0); // CONTROLE DO MOTOR DIREITO
   //  PORTD |= (1 << rmdirpin); // SENTIDO HORÁRIO MOTOR DIREITO
   //  PORTD &= ~(1 << rmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR DIREITO
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
-  
-  // velPid.setSampleTime(tempo);
-  // velPid.setSetPoint(ref); // 200 rpm
-  // velPid.SetOutputLimit(0.0, 100.0);
 
   posPid.setSampleTime(tempo);
   posPid.setSetPoint(AngleCounts(360.0));
-  posPid.SetOutputLimit(-100.0, 100.0);
+  posPid.SetOutputLimit(-1.0, 1.0);
+
 
 
 }
-
-
-void loop() {}
+void loop() {
+  
+}

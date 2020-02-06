@@ -1,4 +1,4 @@
 void requestEvent(){
-   double data = rpm;
-   Wire.write((byte*) &data, sizeof(double));
+   double Data = rpm;
+   Wire.write((byte*) &Data, sizeof(double));
 }

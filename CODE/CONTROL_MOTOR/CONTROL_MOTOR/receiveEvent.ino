@@ -10,7 +10,7 @@ void receiveEvent(int howMany) {
     ref = inString.toDouble();
   }
 
-  velPid.setSetPoint(ref * (PI / 30.0));
+ 
   inString = "";
 
 }
