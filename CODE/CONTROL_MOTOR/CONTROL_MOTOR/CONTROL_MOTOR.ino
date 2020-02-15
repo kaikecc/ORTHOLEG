@@ -3,6 +3,7 @@
 #include "IOpins.h"
 
 
+
 #define  set_bit(reg, bit_reg)  (reg |= (1<<bit_reg))    // técnica de bitwise para ativar o reg especifico
 #define  toggle_bit(reg, bit_reg) (reg  ^= (1<<bit_reg)) // técnica de bitwise para alternar os estados
 #define  reset_bit(reg, bit_reg)  (reg &= ~(1<<bit_reg)) // técnica de bitwise para limpar o reg especifico
@@ -15,11 +16,10 @@
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
 
-PID posPid(0.621, 0.0, 0.00028555);
+PID posPid(0.00018, 0.0, 0.0);// (kP, kI, kD, direcao)
 
 volatile long pulse_number = 0x00, counter = 0x00;
 volatile double rpm = 0.0;
-double ref = 10.0;// * (PI / 30.0);
 
 /********************************************************************************************************/
 
@@ -32,7 +32,7 @@ void setFrequency(char option);
 
 // ========================================================================================================
 
-//************************* TIMER1 ISR **************************
+//************************* TIMER1 ISR ********************************************************************
 
 // --- Constantes ---
 const uint16_t T1_init = 0;
@@ -47,20 +47,20 @@ const unsigned pulsos_por_volta = 500;
 // --- Interrupção ---
 ISR(TIMER1_COMPA_vect)
 {
-  
-  TCNT1 = T1_init;      //reinicializa TIMER1
+  TCNT1 = T1_init; //reinicializa TIMER1
 
-  rpm = (((double(abs(pulse_number)) / 2.0 ) * 60.0) / (double)pulsos_por_volta) / tempo; // mudei aqui
-
-  pulse_number = 0;
+  //  rpm = (((double(abs(pulse_number)) / 2.0 ) * 60.0) / (double)pulsos_por_volta) / tempo;
+  //  pulse_number = 0;
 
   posPid.addNewSample(counter);
   posPid.process();
 
   posPid.pid > 0 ? PORTB &= ~(1 << lmdirpin) : PORTB |= (1 << lmdirpin);
-  posPid.pid == 0 ? PORTB |= (1 << lmbrkpin) : PORTB &= ~(1 << lmbrkpin);
+  (posPid.pid < 7.305205 && posPid.pid > -7.305205)  ? PORTB |= (1 << lmbrkpin) : PORTB &= ~(1 << lmbrkpin);
 
-  setDuty_Motor_L(abs(posPid.pid) * (100 * (ref + 0.177 * 3140.0) / (317.0 * 24.0)));
+  setDuty_Motor_L(abs(posPid.pid) + (100 * (0 + 0.177 * 3140.0) / (317.0 * 24.0)));
+
+  Serial.println(posPid.error);
 } //end ISR
 
 //**********************   END ISR *******************************
@@ -72,11 +72,11 @@ ISR(PCINT0_vect) {
 }// end ISR
 
 void setup() {
-//  Serial.begin(115200);
-  Wire.begin(SLAVE_ADDRESS );
-  Wire.onRequest(requestEvent);
-  Wire.onReceive(receiveEvent);
-  Wire.setClock(3400000);
+  Serial.begin(115200);
+  //  Wire.begin(SLAVE_ADDRESS );
+  //  Wire.onRequest(requestEvent);
+  //  Wire.onReceive(receiveEvent);
+  //  Wire.setClock(3400000);
 
   DDRB |= (1 << lmpwmpin); // pinMode(lmpwmpin, OUTPUT);
   DDRB |= (1 << lmbrkpin); // pinMode(lmbrkpin, OUTPUT);
@@ -127,11 +127,9 @@ void setup() {
   TCCR2A = 0xA3; // 1010 0011 -- Configura operação e fast PWM, utilizando registrador
   setFrequency(1); // ~  62.5 kHz
 
-  //TCCR2B = TCCR2B & B11111000 | B00000110;   // set timer 2 divisor to  256 for PWM frequency of    122.070312500 Hz
-
   setDuty_Motor_L(0.0);// CONTROLE DO MOTOR ESQUERDO
-  // PORTB |= (1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
-  // PORTB &= ~(1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
+  //  PORTB |= (1 << lmdirpin); // SENTIDO ANTI-HORÁRIO MOTOR ESQUERDO
+  //  PORTB &= ~(1 << lmdirpin); // SENTIDO HORÁRIO MOTOR ESQUERDO
   //  PORTD &= ~(1 << lmbrkpin); //  ensure breaks left are off, but     to  control    pin    HIGH = Brake
 
   //  setDuty_Motor_R(0.0); // CONTROLE DO MOTOR DIREITO
@@ -140,12 +138,8 @@ void setup() {
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
   posPid.setSampleTime(tempo);
-  posPid.setSetPoint(AngleCounts(360.0));
-  posPid.SetOutputLimit(-1.0, 1.0);
-
-
+  posPid.setSetPoint(AngleCounts(-360.0));
+  posPid.SetOutputLimit(-100.0, 100.0);
 
 }
-void loop() {
-  
-}
+void loop() {}

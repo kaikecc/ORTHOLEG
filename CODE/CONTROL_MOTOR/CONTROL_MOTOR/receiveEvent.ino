@@ -7,7 +7,7 @@ void receiveEvent(int howMany) {
   for (int i = 0; i < numOfBytes - 1; i++) {
     char data = Wire.read();
     inString += (char)data;
-    ref = inString.toDouble();
+//    ref = inString.toDouble();
   }
 
  

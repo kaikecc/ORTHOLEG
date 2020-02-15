@@ -11,7 +11,7 @@ dP_motor = minreal(dP_motor,0.01);
 zpk(dP_motor)
 
 sys_cl = feedback(dP_motor,1);
-[x1,t] = step(sys_cl,.5);
+[x1,t] = step(sys_cl,.9);
 stairs(t,x1)
 xlabel('Time (seconds)')
 ylabel('Position (radians)')
@@ -21,7 +21,7 @@ grid
 controlSystemDesigner('rlocus',dP_motor) 
 
 dist_cl = feedback(dP_motor,C);
-         [x2,t] = step(dist_cl,.25);
+         [x2,t] = step(dist_cl,2);
          stairs(t,x2)
          xlabel('Time (seconds)')
          ylabel('Position (rad)')

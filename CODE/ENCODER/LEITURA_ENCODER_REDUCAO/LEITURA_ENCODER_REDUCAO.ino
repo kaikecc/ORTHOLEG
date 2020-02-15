@@ -97,7 +97,7 @@ void loop()
 {
 
 Serial.println(pulsos);
-delay(200);
+delay(10);
 /*
   //Atualiza contador a cada segundo
   if (millis() - timeold >= 100)
