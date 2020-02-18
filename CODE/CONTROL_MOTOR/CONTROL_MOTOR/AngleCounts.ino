@@ -2,5 +2,5 @@
 // GEAR_RATIO = 43
 // 
 double AngleCounts(double graus){
- return round(graus * ((500 * 43 * 2) / 360));
+ return (double)round(graus * ((500.0 * 43.0 * 2.0) / 360.0));
 } 

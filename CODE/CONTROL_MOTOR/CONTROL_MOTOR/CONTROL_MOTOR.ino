@@ -16,7 +16,7 @@
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
 
-PID posPid(0.00018, 0.0, 0.0);// (kP, kI, kD, direcao)
+PID posPid(0.0, 0.0001, 0.0, P_ON_E, DIRECT);// (kP, kI, kD, direcao)
 
 volatile long pulse_number = 0x00, counter = 0x00;
 volatile double rpm = 0.0;
@@ -29,6 +29,7 @@ void setDuty_Motor_L();
 void setDuty_Motor_R();
 void counter_pulses();
 void setFrequency(char option);
+double AngleCounts(double graus);
 
 // ========================================================================================================
 
@@ -36,18 +37,19 @@ void setFrequency(char option);
 
 // --- Constantes ---
 const uint16_t T1_init = 0;
-
+// ~10ms
 const uint16_t T1_comp = 63;// (tempo x freq) / prescaler =
 // prescaler: 256
 
 const double tempo  = ((double)T1_comp * 256.0) / 16.0E6; // ~ 100ms
 
-const unsigned pulsos_por_volta = 500;
+//const double pulsos_por_volta = 500.0;
+//const double reducao = 43.0;
 
 // --- Interrupção ---
 ISR(TIMER1_COMPA_vect)
 {
-  TCNT1 = T1_init; //reinicializa TIMER1
+  TCNT1 = T1_init; // reinicializa TIMER1
 
   //  rpm = (((double(abs(pulse_number)) / 2.0 ) * 60.0) / (double)pulsos_por_volta) / tempo;
   //  pulse_number = 0;
@@ -55,12 +57,13 @@ ISR(TIMER1_COMPA_vect)
   posPid.addNewSample(counter);
   posPid.process();
 
-  posPid.pid > 0 ? PORTB &= ~(1 << lmdirpin) : PORTB |= (1 << lmdirpin);
-  (posPid.pid < 7.305205 && posPid.pid > -7.305205)  ? PORTB |= (1 << lmbrkpin) : PORTB &= ~(1 << lmbrkpin);
+  posPid.pid > 0.0 ? PORTB &= ~(1 << lmdirpin) : PORTB |= (1 << lmdirpin);
+  ((posPid.pid < 7.305205) && (posPid.pid > -7.305205))  ? PORTB |= (1 << lmbrkpin) : PORTB &= ~(1 << lmbrkpin);
 
-  setDuty_Motor_L(abs(posPid.pid) + (100 * (0 + 0.177 * 3140.0) / (317.0 * 24.0)));
-
-  Serial.println(posPid.error);
+  setDuty_Motor_L(abs(posPid.pid) + (100.0 * (0.0 + 0.177 * 3140.0) / (317.0 * 24.0)));
+  
+  Serial.println(posPid.pid);
+ 
 } //end ISR
 
 //**********************   END ISR *******************************
@@ -138,7 +141,7 @@ void setup() {
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
   posPid.setSampleTime(tempo);
-  posPid.setSetPoint(AngleCounts(-360.0));
+  posPid.setSetPoint(AngleCounts(360.0)); // SEMPRE POSITIVO OS VALORES POR CAUSA DO ENCODER INCREMETAL ONDE A ORIGEM É DEFINADA COM ZERO
   posPid.SetOutputLimit(-100.0, 100.0);
 
 }

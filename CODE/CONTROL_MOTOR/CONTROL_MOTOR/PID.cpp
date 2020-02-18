@@ -2,6 +2,12 @@
 class PID {
   public:
 
+#define DIRECT 1
+#define REVERSE 0
+
+#define P_ON_M 0
+#define P_ON_E 1
+
     double error,
            sample,
            lastSample,
@@ -13,23 +19,32 @@ class PID {
            setPoint,
            ITerm, dInput;
 
+  
 
-    PID(double _kP, double _kI, double _kD) {
+    PID(double _kP, double _kI, double _kD, bool Pon, bool direcao) {
 
-      if (_kD < 0 || _kI < 0 || _kD < 0) return;
-   
+      setTunings(_kP, _kI, _kD, Pon, direcao);
+     
+    }
+    void setTunings(double Kp, double Ki, double Kd, bool pON, bool dir)
+    {
 
-        kP = _kP;
-        kI = _kI;
-        kD = _kD;
-      
+      if (Kp < 0 || Ki < 0 || Kd < 0) return;
 
+      if (dir == REVERSE) {
+        kP = (0 - Kp);
+        kI = (0 - Ki);
+        kD = (0 - Kd);
+      }
+      else {
+        kP = Kp;
+        kI = Ki;
+        kD = Kd;
+      }
     }
 
     void addNewSample(double _sample) {
-
       sample = _sample;
-
     }
 
     void setSetPoint(double _setPoint) {
@@ -54,7 +69,7 @@ class PID {
     {
       deltaTime = _deltaTime;
     }
-
+    
     double process() {
 
       // Implementação P I D
