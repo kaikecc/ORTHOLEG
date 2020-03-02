@@ -5,8 +5,6 @@ class PID {
 #define DIRECT 1
 #define REVERSE 0
 
-#define P_ON_M 0
-#define P_ON_E 1
 
     double error,
            sample,
@@ -21,12 +19,12 @@ class PID {
 
   
 
-    PID(double _kP, double _kI, double _kD, bool Pon, bool direcao) {
+    PID(double _kP, double _kI, double _kD, bool direcao) {
 
-      setTunings(_kP, _kI, _kD, Pon, direcao);
+      setTunings(_kP, _kI, _kD, direcao);
      
     }
-    void setTunings(double Kp, double Ki, double Kd, bool pON, bool dir)
+    void setTunings(double Kp, double Ki, double Kd, bool dir)
     {
 
       if (Kp < 0 || Ki < 0 || Kd < 0) return;

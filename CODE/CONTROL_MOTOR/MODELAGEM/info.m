@@ -21,8 +21,8 @@ b2 = tq2 / v2; % Coeficiente de Viscosidade da Caixa de Redução
 
 % Equivalentes
 
-Jeq = J1 + J2*(N1/N2)^2; % equivalente de cap em paral se soma
-beq = b1 + b2*(N1/N2)^2; % equivalente
+Jeq = J1 + J2*(N1/N2)^2; % equivalente dos momentos de inercia
+beq = b1 + b2*(N1/N2)^2; % equivalente das coeficiente de viscosidade
 
 s = tf('s');
 
@@ -38,4 +38,4 @@ V_motor = Kt /(a*s*s + b*s + c);
 
 P_motor = Kt / (s*(a*s*s + b*s + c));
 
-pidTuner(P_motor)
+

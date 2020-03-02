@@ -16,7 +16,7 @@
 
 //********************************* VARIÁVEIS GLOBAIS **************************************************
 
-PID posPid(0.0, 0.0001, 0.0, P_ON_E, DIRECT);// (kP, kI, kD, direcao)
+PID posPid(0.0005, 0.001, 0.0, DIRECT);// (kP, kI, kD, direcao)
 
 volatile long pulse_number = 0x00, counter = 0x00;
 volatile double rpm = 0.0;
@@ -38,13 +38,11 @@ double AngleCounts(double graus);
 // --- Constantes ---
 const uint16_t T1_init = 0;
 // ~10ms
-const uint16_t T1_comp = 63;// (tempo x freq) / prescaler =
+const uint16_t T1_comp = 62;// (tempo x freq) / prescaler =
 // prescaler: 256
 
 const double tempo  = ((double)T1_comp * 256.0) / 16.0E6; // ~ 100ms
 
-//const double pulsos_por_volta = 500.0;
-//const double reducao = 43.0;
 
 // --- Interrupção ---
 ISR(TIMER1_COMPA_vect)
@@ -57,13 +55,20 @@ ISR(TIMER1_COMPA_vect)
   posPid.addNewSample(counter);
   posPid.process();
 
-  posPid.pid > 0.0 ? PORTB &= ~(1 << lmdirpin) : PORTB |= (1 << lmdirpin);
-  ((posPid.pid < 7.305205) && (posPid.pid > -7.305205))  ? PORTB |= (1 << lmbrkpin) : PORTB &= ~(1 << lmbrkpin);
+  (posPid.pid > 0.0) ? PORTB &= ~(1 << lmdirpin) : PORTB |= (1 << lmdirpin);
+  // ((posPid.pid < 3.6526025) && (posPid.pid > -3.6526025))  ? PORTB |= (1 << lmbrkpin) : PORTB &= ~(1 << lmbrkpin);
 
   setDuty_Motor_L(abs(posPid.pid) + (100.0 * (0.0 + 0.177 * 3140.0) / (317.0 * 24.0)));
-  
-  Serial.println(posPid.pid);
  
+  /*
+    Serial.print(posPid.setPoint);
+    Serial.print("\t");
+    Serial.print(posPid.sample);
+      Serial.print("\t");
+    Serial.print(posPid.error);
+      Serial.print("\t");
+    Serial.println(posPid.pid);
+  */
 } //end ISR
 
 //**********************   END ISR *******************************
@@ -73,7 +78,6 @@ ISR(PCINT0_vect) {
   counter_pulses();
 
 }// end ISR
-
 void setup() {
   Serial.begin(115200);
   //  Wire.begin(SLAVE_ADDRESS );
@@ -141,8 +145,25 @@ void setup() {
   //  PORTB &= ~(1 << rmbrkpin); // ensure breaks right are off, but     to    control    pin    HIGH = Brake
 
   posPid.setSampleTime(tempo);
-  posPid.setSetPoint(AngleCounts(360.0)); // SEMPRE POSITIVO OS VALORES POR CAUSA DO ENCODER INCREMETAL ONDE A ORIGEM É DEFINADA COM ZERO
+  posPid.setSetPoint(AngleCounts(0.0)); // SEMPRE POSITIVO OS VALORES POR CAUSA DO ENCODER INCREMETAL ONDE A ORIGEM É DEFINADA COM ZERO
   posPid.SetOutputLimit(-100.0, 100.0);
 
+
 }
-void loop() {}
+
+void loop() {
+
+  for(int j = 0; j < 360; j++){
+  posPid.setSetPoint(AngleCounts(360.0 * sin(j * DEG_TO_RAD)));
+  Serial.print(posPid.sample);
+  Serial.print("\t");
+  Serial.println(AngleCounts(720.0 * sin(j * DEG_TO_RAD)));
+  delay(10);
+  }
+
+ 
+
+
+  
+
+}
